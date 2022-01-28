@@ -267,7 +267,7 @@ function App() {
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", color: "var(--primary-text)" }}
                 >
                   Excluding gas fees.
                 </s.TextDescription>
@@ -299,7 +299,7 @@ function App() {
                         <s.TextDescription
                           style={{
                             textAlign: "center",
-                            color: "var(--accent-text)",
+                            color: "var(--primary-text)",
                           }}
                         >
                           {blockchain.errorMsg}
@@ -377,7 +377,7 @@ function App() {
           <s.TextDescription
             style={{
               textAlign: "center",
-              color: "var(--primary-text)",
+              color: "var(--accent-text)",
             }}
           >
             Please make sure you are connected to the right network (
@@ -387,7 +387,7 @@ function App() {
           <s.TextDescription
             style={{
               textAlign: "center",
-              color: "var(--primary-text)",
+              color: "var(--accent-text)",
             }}
           >
           </s.TextDescription>
