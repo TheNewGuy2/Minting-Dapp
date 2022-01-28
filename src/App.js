@@ -203,12 +203,12 @@ function App() {
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 130 }} test>
+        <ResponsiveWrapper flex={1} style={{ padding: 30 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
           </s.Container>
           <s.SpacerLarge />
           <s.Container
-            flex={2}
+            flex={1}
             jc={"center"}
             ai={"center"}
             style={{
