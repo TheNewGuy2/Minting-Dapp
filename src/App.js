@@ -198,22 +198,22 @@ function App() {
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
+        style={{ padding: 100, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
+
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-        <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 30 }} test>
+        <ResponsiveWrapper flex={2} style={{ padding: 50 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
           </s.Container>
-          <s.SpacerLarge />
+
           <s.Container
             flex={1}
             jc={"center"}
             ai={"center"}
             style={{
               backgroundColor: "var(--accent)",
-              padding: 1,
+              padding: 10,
               borderRadius: 550,
               border: "2px dashed var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
@@ -373,7 +373,7 @@ function App() {
           </s.Container>
         </ResponsiveWrapper>
         <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        <s.Container flex={0} jc={"center"} ai={"center"} style={{ width: "50%" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
