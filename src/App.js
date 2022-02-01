@@ -59,14 +59,18 @@ export const ResponsiveWrapper = styled.div`
   flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
-  width: 100%;
+  width: 150%;
   @media (min-width: 767px) {
     flex-direction: row;
+  }
+  @media (min-width: 900px) {
+    flex-direction: row;
+    width: 100%;
   }
 `;
 
 export const StyledLogo = styled.img`
-  width: 200px;
+  width: 100px;
   @media (min-width: 767px) {
     width: 300px;
   }
@@ -79,12 +83,14 @@ export const StyledImg = styled.img`
   border: 4px dashed var(--secondary);
   background-color: var(--accent);
   border-radius: 100%;
-  width: 200px;
+  width: 100px;
   @media (min-width: 900px) {
     width: 250px;
+    hight: 250px;
   }
   @media (min-width: 1000px) {
     width: 300px;
+    hight: 250px;
   }
   transition: width 0.5s;
 `;
