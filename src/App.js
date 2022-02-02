@@ -60,7 +60,7 @@ export const ResponsiveWrapper = styled.div`
   justify-content: stretched;
   align-items: stretched;
   width: 100%;
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     flex-direction: row;
   }
 `;
@@ -99,6 +99,8 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
@@ -191,22 +193,27 @@ function App() {
 
   useEffect(() => {
     getData();
+    calcViewportSize();
+    window.addEventListener('resize', calcViewportSize);
   }, [blockchain.account]);
+
+  const calcViewportSize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  }
 
   return (
     <s.Screen>
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: 100, backgroundColor: "var(--primary)" }}
+        style={{ padding: 100, backgroundColor: "var(--primary)", ...isMobile && { padding: '100px 0px' } }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
 
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-        <ResponsiveWrapper flex={2} style={{ padding: 50 }} test>
+        <ResponsiveWrapper flex={2} style={{ padding: 50, ...isMobile && { padding: '50px 10px' } }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
           </s.Container>
-
           <s.Container
             flex={1}
             jc={"center"}
