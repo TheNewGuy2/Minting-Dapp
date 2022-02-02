@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0xA5ae0919350cE192E33e0Ebdde19561b23B5E4d4",
-  "SCAN_LINK": "https://polygonscan.com/address/0xa5ae0919350ce192e33e0ebdde19561b23b5e4d4",
+  "CONTRACT_ADDRESS": "0x58e0493D213413A324a222085F37CB1c7E2cBC30",
+  "SCAN_LINK": "https://polygonscan.com/address/0x58e0493d213413a324a222085f37cb1c7e2cbc30",
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
     "ID": 137
   },
-  "NFT_NAME": "sunset_22",
+  "NFT_NAME": "SS_22",
   "SYMBOL": "SS_22",
-  "MAX_SUPPLY": 10,
-  "WEI_COST": 7500000000000000,
-  "DISPLAY_COST": 0.0075,
+  "MAX_SUPPLY": 22,
+  "WEI_COST":  4200000000000000000,
+  "DISPLAY_COST": 4.2000,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/sunset-22-1",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/SS_22",
   "SHOW_BACKGROUND": true
 }
