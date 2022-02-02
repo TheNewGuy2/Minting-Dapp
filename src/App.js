@@ -60,11 +60,21 @@ export const ResponsiveWrapper = styled.div`
   justify-content: stretched;
   align-items: stretched;
   width: 150%;
+  @media (min-width: 300px) {
+    width: 370%;
+  }
+ 
+  @media (min-width: 315px) {
+    width: 340%;
+  }
+  @media (min-width: 340px) {
+    width: 300%;
+  }
   @media (min-width: 375px) {
     width: 250%;
   }
   @media (min-width: 400px) {
-    width: 150%;
+    width: 200%;
   }
   @media (min-width: 767px) {
     flex-direction: row;
