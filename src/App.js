@@ -59,14 +59,16 @@ export const ResponsiveWrapper = styled.div`
   flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
-  width: 100%;
-  @media (min-width: 768px) {
     flex-direction: row;
+  }
+  @media (min-width: 900px) {
+    flex-direction: row;
+    width: 100%;
   }
 `;
 
 export const StyledLogo = styled.img`
-  width: 200px;
+  width: 100px;
   @media (min-width: 767px) {
     width: 300px;
   }
@@ -79,12 +81,14 @@ export const StyledImg = styled.img`
   border: 4px dashed var(--secondary);
   background-color: var(--accent);
   border-radius: 100%;
-  width: 200px;
+  width: 100px;
   @media (min-width: 900px) {
     width: 250px;
+    hight: 250px;
   }
   @media (min-width: 1000px) {
     width: 300px;
+    hight: 250px;
   }
   transition: width 0.5s;
 `;
@@ -99,15 +103,12 @@ const CircularContainer = styled.div`
   height: 100%;
   display: flex;
   position: absolute;
-  top:0;
   left: 0;
   animation: rotation 130s linear infinite;
 `;
 
 const CircularContainerImg = styled.img`
   width: 100%;
-  height: 100%;
-  object-fit: contain;
   position: absolute;
 `;
 
@@ -224,7 +225,7 @@ function App() {
 
   const calcViewportSize = () => {
     setIsMobileSm(window.innerWidth <= 320);
-    setIsMobile(window.innerWidth <= 600);
+    setIsMobile(window.innerWidth <= 768);
   }
 
   return (
@@ -237,8 +238,12 @@ function App() {
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}} />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
-          <CircularContainer>
-            <CircularContainerImg src={'/config/images/circle.png'} />
+          <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
+            { !blockchain.account && <a href="/"> <CircularContainerImg 
+                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                src={'/config/images/circle.png'}
+              /></a>
+            }
           </CircularContainer>
           <SunContainer 
             style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
@@ -256,7 +261,7 @@ function App() {
                 boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
                 position: 'relative',
                 padding: '30px',            
-                ...isMobile && { maxWidth: isMobileSm ? '275px': '300px', height: isMobileSm ? '275px': '300px', margin:'0px auto' }
+                ...isMobile && { maxWidth: '300px', height: '300px', margin:'0px auto' }
               }}
             >
               <s.TextTitle
