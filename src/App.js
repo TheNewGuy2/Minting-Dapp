@@ -228,6 +228,15 @@ function App() {
     setIsMobile(window.innerWidth <= 768);
   }
 
+//  useEffect(() => {
+//    getData();
+//    if (blockchain.account != "" && blockchain.NFT_NAME != null) {
+//      dispatch(fetchData(blockchain.account));
+//    }
+//  }, [blockchain.NFT_NAME]);
+
+
+
   return (
     <s.Screen>
       <s.Container
@@ -239,7 +248,7 @@ function App() {
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}} />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
-            { !blockchain.account && <a href="/"> <CircularContainerImg 
+            { !blockchain.account && <a href="https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit"> <CircularContainerImg 
                 style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
                 src={'/config/images/circle.png'}
               /></a>
