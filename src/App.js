@@ -250,7 +250,7 @@ function App() {
   return (
     <s.Screen>
       { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <BottomRightCornerContainer>
-          <a href="/"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
+          <a href="https://www.wearespecimen.com"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
         </BottomRightCornerContainer>
       }
       <s.Container
