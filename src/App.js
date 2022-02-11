@@ -118,6 +118,16 @@ const SunContainer = styled.div`
   align-items:center;
 `;
 
+const BottomRightCornerContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 10;
+`;
+
+const BottomRightCornerImg = styled.img`
+  width: 100px;
+  height: 100px;
+`;
 
 function App() {
   const dispatch = useDispatch();
@@ -239,6 +249,10 @@ function App() {
 
   return (
     <s.Screen>
+      { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <BottomRightCornerContainer>
+          <a href="/"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
+        </BottomRightCornerContainer>
+      }
       <s.Container
         flex={1}
         ai={"center"}
