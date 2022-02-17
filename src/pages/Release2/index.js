@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "../../redux/blockchain/blockchainActions";
-import { fetchData } from "../../redux/data/dataActions";
+import { connect } from "../../redux/blockchain/blockchainActions2";
+import { fetchData } from "../../redux/data/dataActions2";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 
@@ -131,8 +131,8 @@ const BottomRightCornerImg = styled.img`
 
 function Index() {
   const dispatch = useDispatch();
-  const blockchain = useSelector((state) => state.blockchain);
-  const data = useSelector((state) => state.data);
+  const blockchain = useSelector((state) => state.blockchain2);
+  const data = useSelector((state) => state.data2);
   const [claimingNft, setClaimingNft] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
@@ -213,7 +213,7 @@ function Index() {
   };
 
   const getConfig = async () => {
-    const configResponse = await fetch("/config/config.json", {
+    const configResponse = await fetch("/config/config2.json", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -225,6 +225,8 @@ function Index() {
 
   useEffect(() => {
     getConfig();
+    dispatch(connect());
+    getData();
   }, []);
 
   useEffect(() => {
