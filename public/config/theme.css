@@ -81,3 +81,7 @@
           transform: rotate(360deg);
       }
   }
+
+.in-valid-input {
+    border: 2px solid red !important;
+}
