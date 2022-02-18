@@ -162,62 +162,74 @@ function Index() {
                                 readOnly
                                 value={blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}
                             />
+                            <s.TextDescription
+                                style={{
+                                    color: "var(--primary-text)",
+                                }}
+                            >
+                                Name
+                            </s.TextDescription>
+                            <InputField
+                                type="text"
+                                name="name"
+                                className={isValid.value && isValid.name === 'name' ? 'in-valid-input' : ''}
+                                onFocus={() => setIsValid({ value: false, text: '', name: '' })}
+                                placeholder="Name"
+                                value={customerName}
+                                onChange={(e) => setCustomerName(e.target.value)}
+                            />
+                            {isValid.value && isValid.name == 'name' && <s.TextDescription
+                                style={{
+                                    color: "red",   
+                                }}
+                            >
+                                {isValid.msg}
+                            </s.TextDescription>}
+                            <s.TextDescription
+                                style={{
+                                    color: "var(--primary-text)",   
+                                }}
+                            >
+                                Shipping Address 
+                            </s.TextDescription>
+                            <InputTextArea
+                                type="text"
+                                rows={4}
+                                placeholder="Shipping Address"
+                                className={isValid.value && isValid.name === 'shippingAddress' ? 'in-valid-input' : ''}
+                                onFocus={() => setIsValid({ value: false, text: '', name: '' })}
+                                value={shippingAddress}
+                                onChange={(e) => setShippingAddress(e.target.value)}
+                            />
+                            {isValid.value && isValid.name == 'shippingAddress' && <s.TextDescription
+                                style={{
+                                    color: "red",   
+                                }}
+                            >
+                                {isValid.msg}
+                            </s.TextDescription>}
                         </>
                     }
-                    <s.TextDescription
-                        style={{
-                            color: "var(--primary-text)",
-                        }}
-                    >
-                        Name
-                    </s.TextDescription>
-                    <InputField
-                        type="text"
-                        name="name"
-                        className={isValid.value && isValid.name === 'name' ? 'in-valid-input' : ''}
-                        onFocus={() => setIsValid({ value: false, text: '', name: '' })}
-                        placeholder="Name"
-                        value={customerName}
-                        onChange={(e) => setCustomerName(e.target.value)}
-                    />
-                     {isValid.value && isValid.name == 'name' && <s.TextDescription
-                        style={{
-                            color: "red",   
-                        }}
-                    >
-                        {isValid.msg}
-                    </s.TextDescription>}
-                    <s.TextDescription
-                        style={{
-                            color: "var(--primary-text)",   
-                        }}
-                    >
-                        Shipping Address 
-                    </s.TextDescription>
-                    <InputTextArea
-                        type="text"
-                        rows={4}
-                        placeholder="Shipping Address"
-                        className={isValid.value && isValid.name === 'shippingAddress' ? 'in-valid-input' : ''}
-                        onFocus={() => setIsValid({ value: false, text: '', name: '' })}
-                        value={shippingAddress}
-                        onChange={(e) => setShippingAddress(e.target.value)}
-                    />
-                   {isValid.value && isValid.name == 'shippingAddress' && <s.TextDescription
-                        style={{
-                            color: "red",   
-                        }}
-                    >
-                        {isValid.msg}
-                    </s.TextDescription>}
                 </div>
-                <StyledButton
-                    onClick={(e) => {
-                        submit(e);
-                    }}
-                >
-                    Submit
-                </StyledButton>
+                { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 ? 
+                    <StyledButton
+                        onClick={(e) => {
+                            submit(e);
+                        }}
+                        style={{ width: 300 }}
+                    >
+                        Submit
+                    </StyledButton>
+                    :
+                    !blockchain.loading && <StyledButton
+                        onClick={(e) => {
+                            navigate('/relase2')
+                        }}
+                        style={{ width: 300 }}
+                    >
+                        Go Back
+                    </StyledButton>
+                }
             </s.Container>
         </s.Screen>
     );
