@@ -252,7 +252,7 @@ function Index() {
   return (
     <s.Screen>
       { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <BottomRightCornerContainer>
-          <a href="https://www.wearespecimen.com"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
+          <a href="https://tzevaot.app/StoreFront"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
         </BottomRightCornerContainer>
       }
       <s.Container

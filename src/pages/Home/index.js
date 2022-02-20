@@ -42,17 +42,24 @@ function Index() {
                 flex={1}
                 ai={"center"}
                 style={{ padding: 100, backgroundColor: "var(--primary)" }}
-                image={"/config/images/bg.png"}
+                image={"/config/images/homebg.png"}
             >
-                <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }} />
-                <s.SpacerMedium />
                 <StyledButton
                     onClick={(e) => {
                         e.preventDefault();
                         navigate('/release1');
                     }}
                 >
-                    Get Started
+                    Release 1
+                </StyledButton>
+                <s.SpacerMedium />
+                <StyledButton
+                    onClick={(e) => {
+                        e.preventDefault();
+                        navigate('/release2');
+                    }}
+                >
+                    Release 2
                 </StyledButton>
             </s.Container>
         </s.Screen>
