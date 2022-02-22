@@ -53,7 +53,27 @@ const InputTextArea = styled.textarea`
     border-radius: 8px;
     border: none;
     width: 100%;
+    resize: none;
 `;
+
+const StoreFrontContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    width: 100%;
+`;
+
+const ImageContainer = styled.div`
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+`;
+
+const ContainerImg = styled.img`
+  height: 20em;
+  width: 20em;
+`
 
 function Index() {
     const dispatch = useDispatch();
@@ -127,14 +147,19 @@ function Index() {
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: 100, backgroundColor: "var(--primary)" }}
+                style={{ padding: isMobile ? '100px 16px' : '100px', backgroundColor: "var(--primary)" }}
                 image={"/config/images/bg.png"}
             >
                 <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }} />
                 <s.SpacerMedium />
-                
-                <div className="App__form" style={{ width: 300 }}>
-                    { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <> 
+                { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && 
+                    <StoreFrontContainer
+                        style={{ flexDirection: isMobile ? 'column' : 'row' }}
+                    >
+                        <ImageContainer>
+                            <ContainerImg src="/config/images/Release2bg.png" />
+                        </ImageContainer>
+                        <div className="App__form" style={{ flex: 1 }}>
                             <s.TextDescription
                                 style={{
                                     color: "var(--primary-text)",
@@ -149,7 +174,7 @@ function Index() {
                                 value={blockchain.account}
                                 
                             />
-                             <s.TextDescription
+                            <s.TextDescription
                                 style={{
                                     color: "var(--primary-text)",
                                 }}
@@ -208,9 +233,15 @@ function Index() {
                             >
                                 {isValid.msg}
                             </s.TextDescription>}
-                        </>
-                    }
-                </div>
+                        </div>
+                        <ImageContainer>
+                            <ContainerImg 
+                                style={{ cursor: 'pointer' }}
+                                onClick={(e) => window.open("https://opensea.io/", '_blank') } 
+                                src="/config/images/Release2bg.png" />
+                        </ImageContainer>
+                    </StoreFrontContainer>
+                }
                 { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 ? 
                     <StyledButton
                         onClick={(e) => {
