@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as s from "../../styles/globalStyles";
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -35,32 +35,65 @@ export const StyledButton = styled.button`
 function Index() {
 
     const navigate = useNavigate();
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        calcViewportSize();
+        window.addEventListener('resize', calcViewportSize);
+    }, []);
+
+    const calcViewportSize = () => {
+        setIsMobile(window.innerWidth <= 767);
+    }
 
     return (
-        <s.Screen>
+        <s.Screen style={{ height: '100%' }}>
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: 100, backgroundColor: "var(--primary)" }}
+                style={{ padding: isMobile ? 16 : 50, height: '100%', backgroundColor: "var(--primary)", ...isMobile && { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
                 image={"/config/images/homebg.png"}
+
             >
-                <StyledButton
-                    onClick={(e) => {
-                        e.preventDefault();
-                        navigate('/release1');
-                    }}
-                >
-                    Release 1
-                </StyledButton>
-                <s.SpacerMedium />
-                <StyledButton
-                    onClick={(e) => {
-                        e.preventDefault();
-                        navigate('/release2');
-                    }}
-                >
-                    Release 2
-                </StyledButton>
+                <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div 
+                        style={{ 
+                            height: 100, width: 100, borderRadius: '50%', 
+                            border: "2px dashed var(--secondary)",
+                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/release1');
+                        }}
+                    >
+                        Release 1
+                    </div>
+                    <div 
+                        style={{ 
+                            height: 100, width: 100, borderRadius: '50%', 
+                            border: "2px dashed var(--secondary)",
+                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer'
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/release2');
+                        }}
+                    >
+                        Release 2 
+                    </div>
+                </div>
+                
+                {/* <s.SpacerMedium /> */}
+                
             </s.Container>
         </s.Screen>
     );
