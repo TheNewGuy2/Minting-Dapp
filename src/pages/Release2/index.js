@@ -259,7 +259,7 @@ function Index() {
         flex={1}
         ai={"center"}
         style={{ padding: 100, backgroundColor: "var(--primary)", ...isMobile && { padding: '100px 0px' } }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+        image={CONFIG.SHOW_BACKGROUND ? "/config/images/Release2bg.png" : null}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}} />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
