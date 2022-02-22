@@ -157,7 +157,7 @@ function Index() {
                         style={{ flexDirection: isMobile ? 'column' : 'row' }}
                     >
                         <ImageContainer>
-                            <ContainerImg src="/config/images/Release2bg.png" />
+                            <ContainerImg src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`} />
                         </ImageContainer>
                         <div className="App__form" style={{ flex: 1 }}>
                             <s.TextDescription
