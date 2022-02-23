@@ -261,7 +261,9 @@ function Index() {
         style={{ padding: 100, backgroundColor: "var(--primary)", ...isMobile && { padding: '100px 0px' } }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/Release2bg.png" : null}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}} />
+        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
+                style={{ cursor: 'pointer' }}
+                onClick={(e) => window.open('/home', '_blank') } />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
             { !blockchain.account && <a href="https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit"> <CircularContainerImg 
