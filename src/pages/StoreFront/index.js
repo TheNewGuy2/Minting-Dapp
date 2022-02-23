@@ -150,14 +150,18 @@ function Index() {
                 style={{ padding: isMobile ? '100px 16px' : '100px', backgroundColor: "var(--primary)" }}
                 image={"/config/images/bg.png"}
             >
-                <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }} />
+                <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }}
+                                 style={{ cursor: 'pointer' }}
+                                 onClick={(e) => window.open('/home', '_blank') } />
                 <s.SpacerMedium />
                 { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && 
                     <StoreFrontContainer
                         style={{ flexDirection: isMobile ? 'column' : 'row' }}
                     >
                         <ImageContainer>
-                            <ContainerImg src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`} />
+                            <ContainerImg src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`} 
+                                style={{ cursor: 'pointer' }}
+                                onClick={(e) => window.open(`https://opensea.io/assets/matic/0x45f30e65968ece14996c230479b44a28486a3b2b/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}`, '_blank') } />
                         </ImageContainer>
                         <div className="App__form" style={{ flex: 1 }}>
                             <s.TextDescription
