@@ -237,8 +237,8 @@ function Index() {
                         <ImageContainer>
                             <ContainerImg 
                                 style={{ cursor: 'pointer' }}
-                                onClick={(e) => window.open("https://opensea.io/", '_blank') } 
-                                src="/config/images/Release2bg.png" />
+                                onClick={(e) => window.open("https://opensea.io/collection/ss-11", '_blank') } 
+                                src="/config/images/printexample.jpg" />
                         </ImageContainer>
                     </StoreFrontContainer>
                 }
