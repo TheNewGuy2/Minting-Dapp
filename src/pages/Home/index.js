@@ -71,7 +71,7 @@ function Index() {
                             navigate('/release1');
                         }}
                     >
-                        Release 1
+                        SS_22
                     </div>
                     <div 
                         style={{ 
@@ -88,7 +88,7 @@ function Index() {
                             navigate('/release2');
                         }}
                     >
-                        Release 2 
+                        SS_11 
                     </div>
                 </div>
                 
