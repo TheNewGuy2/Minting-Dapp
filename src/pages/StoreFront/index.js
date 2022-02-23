@@ -161,7 +161,7 @@ function Index() {
                         <ImageContainer>
                             <ContainerImg src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`} 
                                 style={{ cursor: 'pointer' }}
-                                onClick={(e) => window.open('https://opensea.io/collection/ss-11', '_blank') } />
+                                onClick={(e) => window.open(`https://opensea.io/assets/matic/0x45f30e65968ece14996c230479b44a28486a3b2b/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}`, '_blank') } />
                         </ImageContainer>
                         <div className="App__form" style={{ flex: 1 }}>
                             <s.TextDescription
