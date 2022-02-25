@@ -40,6 +40,12 @@ function Index() {
     useEffect(() => {
         calcViewportSize();
         window.addEventListener('resize', calcViewportSize);
+        if (window && document) {
+            const body = document.getElementsByTagName('body')[0];
+            const scriptAudio = document.createElement('script')
+            scriptAudio.src = 'js/eyetracker.js';
+            body.appendChild(scriptAudio);
+        }
     }, []);
 
     const calcViewportSize = () => {
@@ -52,8 +58,7 @@ function Index() {
                 flex={1}
                 ai={"center"}
                 style={{ padding: isMobile ? 16 : 50, height: '100%', backgroundColor: "var(--primary)", ...isMobile && { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
-                image={"/config/images/homebg.png"}
-
+                image={isMobile ? "/config/images/homebg.png":"/config/images/bg.png"}
             >
                 <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div 
@@ -73,6 +78,46 @@ function Index() {
                     >
                         SS_22
                     </div>
+                    { !isMobile && <>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-Z.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-A.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                        <div
+                            style={{ height: 155, width: 155, position: 'relative' }}
+                        >
+                            <div className="eye">
+                                <div className="iris">
+                                    <div className="pupil">
+                                        <div className="pupil-shine"></div>
+                                    </div>
+                                </div>
+                                {/* <!--<div class="eyeshine"></div>--> */}
+                                <div className="lids"></div>
+                            </div>
+                        </div>
+                        <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>
+                    </>
+                    }
                     <div 
                         style={{ 
                             height: 100, width: 100, borderRadius: '50%', 
