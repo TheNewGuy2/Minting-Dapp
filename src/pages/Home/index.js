@@ -137,6 +137,23 @@ function Index() {
                         SS_11 
                     </div>
                 </div>
+                <div 
+                        style={{ 
+                            height: 100, width: 100, borderRadius: '50%', 
+                            border: "2px dashed var(--secondary)",
+                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer'
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/release3');
+                        }}
+                    >
+                        SS_33 
+                    </div>
                 
                 {/* <s.SpacerMedium /> */}
                 

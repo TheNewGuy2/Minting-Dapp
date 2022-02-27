@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "../../redux/blockchain/blockchainActions2";
-import { fetchData } from "../../redux/data/dataActions2";
+import { connect } from "../../redux/blockchain/blockchainActions3";
+import { fetchData } from "../../redux/data/dataActions3";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
@@ -132,8 +132,8 @@ const BottomRightCornerImg = styled.img`
 
 function Index() {
   const dispatch = useDispatch();
-  const blockchain = useSelector((state) => state.blockchain2);
-  const data = useSelector((state) => state.data2);
+  const blockchain = useSelector((state) => state.blockchain3);
+  const data = useSelector((state) => state.data3);
   const [claimingNft, setClaimingNft] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
@@ -214,7 +214,7 @@ function Index() {
   };
 
   const getConfig = async () => {
-    const configResponse = await fetch("/config/config2.json", {
+    const configResponse = await fetch("/config/config3.json", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -265,7 +265,7 @@ function Index() {
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
                 style={{ cursor: 'pointer' }}
-                onClick={(e) => navigate('/home', '_top') } />
+                onClick={(e) => navigate('/home', '_blank') } />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
             { !blockchain.account && <a href="https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit"> <CircularContainerImg 
