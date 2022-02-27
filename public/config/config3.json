@@ -1,0 +1,19 @@
+{
+    "CONTRACT_ADDRESS": "0x45F30e65968ece14996c230479b44a28486A3b2B",
+    "SCAN_LINK": "https://polygonscan.com/address/0x45F30e65968ece14996c230479b44a28486A3b2B",
+    "NETWORK": {
+      "NAME": "Polygon",
+      "SYMBOL": "Matic",
+      "ID": 137
+    },
+    "NFT_NAME": "SS_33",
+    "SYMBOL": "SS_33",
+    "MAX_SUPPLY": 33,
+    "WEI_COST":  14200000000000000000,
+    "DISPLAY_COST": 14.2000,
+    "GAS_LIMIT": 2850000,
+    "MARKETPLACE": "Opeansea",
+    "MARKETPLACE_LINK": "https://opensea.io/collection/ss-11",
+    "SHOW_BACKGROUND": true
+  }
+  
