@@ -32,6 +32,7 @@ export const StyledButton = styled.button`
   }
 `;
 
+
 function Index() {
 
     const navigate = useNavigate();
@@ -57,8 +58,8 @@ function Index() {
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: isMobile ? 16 : 50, height: '100%', backgroundColor: "var(--primary)", ...isMobile && { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
-                image={isMobile ? "/config/images/homebg.png":"/config/images/bg.png"}
+                style={{ padding: isMobile ? 160 : 350, height: '100%', backgroundColor: "var(--primary)", ...isMobile && { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
+                image={isMobile ? "/config/images/Release2bg.png":"/config/images/Release2bg.png"}
             >
                 <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div 
@@ -88,11 +89,11 @@ function Index() {
                         >
                         </div>
                         <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                            style={{ height: 150, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
                         <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                            style={{ height: 135, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
                         <div
