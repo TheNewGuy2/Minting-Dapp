@@ -5,7 +5,7 @@ import { fetchData } from "../../redux/data/dataActions";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-
+import LazyLoad from 'react-lazyload';
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
@@ -254,18 +254,20 @@ function Index() {
   return (
     <s.Screen>
       { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <BottomRightCornerContainer>
-          <a href="https://www.wearespecimen.com"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
+          <a href="https://www.wearespecimen.com" target="_blank"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
         </BottomRightCornerContainer>
       }
       <s.Container
         flex={1}
         ai={"center"}
+        image={CONFIG.SHOW_BACKGROUND ? "/config/images/Release2bg.png" : null}
         style={{ padding: 100, backgroundColor: "var(--primary)", ...isMobile && { padding: '100px 0px' } }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
                 style={{ cursor: 'pointer' }}
-                onClick={(e) => window.open('/home', '_blank') } />
+                onClick={
+                  
+                  (e) => navigate('/home', '_top') } />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
             { !blockchain.account && 

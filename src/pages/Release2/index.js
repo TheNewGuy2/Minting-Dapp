@@ -4,6 +4,7 @@ import { connect } from "../../redux/blockchain/blockchainActions2";
 import { fetchData } from "../../redux/data/dataActions2";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -240,6 +241,7 @@ function Index() {
     setIsMobile(window.innerWidth <= 768);
   }
 
+  const navigate = useNavigate();
 //  useEffect(() => {
 //    getData();
 //    if (blockchain.account != "" && blockchain.NFT_NAME != null) {
@@ -263,7 +265,7 @@ function Index() {
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
                 style={{ cursor: 'pointer' }}
-                onClick={(e) => window.open('/home', '_blank') } />
+                onClick={(e) => navigate('/home', '_blank') } />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
             { !blockchain.account && <a href="https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit"> <CircularContainerImg 
