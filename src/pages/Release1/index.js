@@ -267,7 +267,7 @@ function Index() {
                 style={{ cursor: 'pointer' }}
                 onClick={
                   
-                  (e) => window.location.href='/home', '_top')} />
+                  (e) => window.location.href='/home', '_top'} />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
             { !blockchain.account && 
