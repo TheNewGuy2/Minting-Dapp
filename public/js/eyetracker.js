@@ -9,6 +9,7 @@ Thanks to Serge for providing a good example of the base mouse tracking here: cd
 var eye, lids = null;
 var lidMax = 76;
 var skinColor = $('.lids').css('border-top-color');
+// if (skinColor) {
 var eyeColor;
 var lidTop = {
     pos: 25, posGoal: this.pos, relaxed: 25, surprised: 10,
@@ -307,11 +308,11 @@ function followMouse() {
 $('.lids').click(function () {
     anger += 100;
     blinkTimer = 1;
-    eyeSounds[randomInt(0, eyeSounds.length - 1)].play();
+    // eyeSounds[randomInt(0, eyeSounds.length - 1)].play();
 });
 
 $('*').click(function () {
-    skinSounds[randomInt(0, skinSounds.length - 1)].play();
+    // skinSounds[randomInt(0, skinSounds.length - 1)].play();
 })
 
 // linearly interpolate from part to goalPos (smooth animation effect)
@@ -338,3 +339,5 @@ function lerp(x, t, y) {
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+// }
