@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as s from "../../styles/globalStyles";
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import Slider from "react-slick";
+import importScript from '../customHooks/importScript';
 
 export const StyledLogo = styled.img`
   width: 100px;
@@ -32,8 +34,30 @@ export const StyledButton = styled.button`
   }
 `;
 
+const SunContainer = styled.div`
+    height: 100px; 
+    width: 100px; 
+    border-radius: 50%; 
+    border: 2px dashed var(--secondary);
+    box-shadow: 0px 5px 11px 2px rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+`;
+
+const SunWrapper = styled.div`
+    height: 200px; 
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 
 function Index() {
+    
+    importScript("js/eyetracker.js");
 
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
@@ -41,45 +65,33 @@ function Index() {
     useEffect(() => {
         calcViewportSize();
         window.addEventListener('resize', calcViewportSize);
-        if (window && document) {
-            const body = document.getElementsByTagName('body')[0];
-            const scriptAudio = document.createElement('script')
-            scriptAudio.src = 'js/eyetracker.js';
-            body.appendChild(scriptAudio);
-        }
     }, []);
 
     const calcViewportSize = () => {
         setIsMobile(window.innerWidth <= 767);
     }
+    
+    const settings = {
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplaySpeed: 3000,
+        cssEase: "linear"
+    };
 
     return (
+
         <s.Screen style={{ height: '100%' }}>
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: isMobile ? 160 : 350, height: '100%', backgroundColor: "var(--primary)", ...isMobile && { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
+                style={{ padding: '0px 200px', height: '100%', backgroundColor: "var(--primary)", ...isMobile && { padding: 160, backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
                 image={isMobile ? "/config/images/Release2bg.png":"/config/images/Release2bg.png"}
             >
-                <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div 
-                        style={{ 
-                            height: 100, width: 100, borderRadius: '50%', 
-                            border: "2px dashed var(--secondary)",
-                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                        }}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate('/release1');
-                        }}
-                    >
-                        SS_22
-                    </div>
-                    { !isMobile && <>
+                <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                    { !isMobile && <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
                         <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
@@ -89,11 +101,11 @@ function Index() {
                         >
                         </div>
                         <div
-                            style={{ height: 150, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
                         <div
-                            style={{ height: 135, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
                         <div
@@ -117,46 +129,49 @@ function Index() {
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                    </>
+                    </div>
                     }
-                    <div 
-                        style={{ 
-                            height: 100, width: 100, borderRadius: '50%', 
-                            border: "2px dashed var(--secondary)",
-                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer'
-                        }}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate('/release2');
-                        }}
-                    >
-                        SS_11 
+                    <div style={{ width: '250px' }}>
+                        <Slider {...settings}>
+                                <div>
+                                    <SunWrapper>
+                                        <SunContainer 
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate('/release1');
+                                            }}
+                                        >
+                                            SS_22
+                                        </SunContainer>
+                                    </SunWrapper>
+                                </div>
+                                <div>
+                                    <SunWrapper>
+                                        <SunContainer 
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate('/release2');
+                                            }}
+                                        >
+                                            SS_11
+                                        </SunContainer>
+                                    </SunWrapper>
+                                </div>
+                                <div>
+                                    <SunWrapper>
+                                        <SunContainer 
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate('/release3');
+                                            }}
+                                        >
+                                            SS_33
+                                        </SunContainer>
+                                    </SunWrapper>
+                                </div>
+                        </Slider>
                     </div>
                 </div>
-                <div 
-                        style={{ 
-                            height: 100, width: 100, borderRadius: '50%', 
-                            border: "2px dashed var(--secondary)",
-                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer'
-                        }}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate('/release3');
-                        }}
-                    >
-                        SS_33 
-                    </div>
-                
-                {/* <s.SpacerMedium /> */}
-                
             </s.Container>
         </s.Screen>
     );

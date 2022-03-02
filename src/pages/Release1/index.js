@@ -229,6 +229,8 @@ function Index() {
 
   useEffect(() => {
     getConfig();
+    dispatch(connect());
+    getData();
   }, []);
 
   useEffect(() => {
