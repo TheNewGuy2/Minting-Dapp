@@ -43,7 +43,7 @@ var xp = 45;
 var yp = 55;
 
 // entry point
-window.onload = init;
+init();
 
 function init() {
     eye = $('.eye');
