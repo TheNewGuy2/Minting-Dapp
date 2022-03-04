@@ -11,7 +11,7 @@
   "MAX_SUPPLY": 22,
   "WEI_COST":  4200000000000000000,
   "DISPLAY_COST": 4.2000,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 2850000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/SS_22",
   "SHOW_BACKGROUND": true

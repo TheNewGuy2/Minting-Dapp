@@ -1,6 +1,6 @@
 {
-    "CONTRACT_ADDRESS": "0x45F30e65968ece14996c230479b44a28486A3b2B",
-    "SCAN_LINK": "https://polygonscan.com/address/0x45F30e65968ece14996c230479b44a28486A3b2B",
+    "CONTRACT_ADDRESS": "0x9e4bAeb547692004454aCa29a790841D85b89770",
+    "SCAN_LINK": "https://polygonscan.com/address/0x9e4bAeb547692004454aCa29a790841D85b89770",
     "NETWORK": {
       "NAME": "Polygon",
       "SYMBOL": "Matic",
@@ -13,7 +13,7 @@
     "DISPLAY_COST": 14.2000,
     "GAS_LIMIT": 2850000,
     "MARKETPLACE": "Opeansea",
-    "MARKETPLACE_LINK": "https://opensea.io/collection/ss-11",
+    "MARKETPLACE_LINK": "https://opensea.io/collection/ss-33",
     "SHOW_BACKGROUND": true
   }
   
