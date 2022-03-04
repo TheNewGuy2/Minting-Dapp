@@ -77,7 +77,7 @@ function Index() {
         autoplay: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 30000,
         cssEase: "linear"
     };
 

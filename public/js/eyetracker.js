@@ -39,8 +39,8 @@ var center = {
     y: $('.eye').height() / 2 - r
 };
 var distanceThreshold = $('.eye').width() / 2 - r;
-var xp = 45;
-var yp = 55;
+var xp = 15;
+var yp = 15;
 
 // entry point
 init();
