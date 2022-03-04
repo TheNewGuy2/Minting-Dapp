@@ -87,50 +87,54 @@ function Index() {
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: '0px 200px', height: '100%', backgroundColor: "var(--primary)", ...isMobile && { padding: 160, backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } }}
-                image={isMobile ? "/config/images/smallbg.jpg":"/config/images/smallbg.jpg"}
+                style={{ padding: '0px 200px', height: '100%', backgroundColor: "var(--primary)", ...isMobile && { padding: 0 } }}
+                image={isMobile ? "/config/images/Release2bg.webp":"/config/images/Release2bg.webp"}
             >
-                <div style={{ display: 'flex', ...isMobile && { flexDirection: 'column' }, flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
-                    { !isMobile && <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <div
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                    <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: isMobile ? 'center' : 'space-between' }}>
+                    { !isMobile && <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                        <div
+                    }
+                    { !isMobile && <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-Z.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                        <div
+                    }
+                    { !isMobile && <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                        <div
+                    }
+                    { !isMobile && <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                        <div
+                    }
+                    { !isMobile && <div
                             style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-A.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
                         >
                         </div>
-                        <div
-                            style={{ height: 155, width: 155, position: 'relative' }}
-                        >
-                            <div className="eye">
-                                <div className="iris">
-                                    <div className="pupil">
-                                        <div className="pupil-shine"></div>
-                                    </div>
+                    }
+                    <div
+                        style={{ height: 155, width: 155, position: 'relative' }}
+                    >
+                        <div className="eye">
+                            <div className="iris">
+                                <div className="pupil">
+                                    <div className="pupil-shine"></div>
                                 </div>
-                                {/* <!--<div class="eyeshine"></div>--> */}
-                                <div className="lids"></div>
                             </div>
-                        </div>
-                        <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
+                            {/* <!--<div class="eyeshine"></div>--> */}
+                            <div className="lids"></div>
                         </div>
                     </div>
-                    }
+                    { !isMobile &&  <div
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+                        >
+                        </div>}
+                    </div>
                     <div style={{ width: '250px' }}>
                         <Slider {...settings}>
                                 <div>
