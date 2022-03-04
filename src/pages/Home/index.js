@@ -88,7 +88,7 @@ function Index() {
                 flex={1}
                 ai={"center"}
                 style={{ padding: '0px 200px', height: '100%', backgroundColor: "var(--primary)", ...isMobile && { padding: 0 } }}
-                image={isMobile ? "/config/images/smallbg.jpg":"/config/images/smallbg.jpg"}
+                image={isMobile ? "/config/images/Release2bg.webp":"/config/images/Release2bg.webp"}
             >
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
                     <div style={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: isMobile ? 'center' : 'space-between' }}>
