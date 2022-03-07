@@ -262,7 +262,7 @@ function Index() {
       <s.Container
         flex={1}
         ai={"center"}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/smallbg.jpg" : null}
+        image={CONFIG.SHOW_BACKGROUND ? "/config/images/Release2bg.webp" : null}
         style={{ padding: 100, backgroundColor: "var(--primary)", ...isMobile && { padding: '100px 0px' } }}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}

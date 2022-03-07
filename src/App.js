@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Navigate, Route } from 'react-router-dom';
-import Home from './pages/Home/index';
-import Release1 from './pages/Release1/index';
-import Release2 from './pages/Release2/index';
-import Release3 from './pages/Release3/index';
-import StoreFront from './pages/StoreFront/index';
+const Home = lazy(() => import('./pages/Home/index'));
+const Release1 = lazy(() => import('./pages/Release1/index'));
+const Release2 = lazy(() => import('./pages/Release2/index'));
+const Release3 = lazy(() => import('./pages/Release3/index'));
+const StoreFront = lazy(() => import('./pages/StoreFront/index'));
 
 function App() {
   
