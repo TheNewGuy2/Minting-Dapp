@@ -142,7 +142,7 @@ function Index() {
                                         <SunContainer 
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate('/release1');
+                                                navigate('/release1', '_top');
                                             }}
                                         >
                                             SS_22
