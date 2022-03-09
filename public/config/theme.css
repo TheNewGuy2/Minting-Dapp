@@ -7,6 +7,14 @@
     --accent-text: #ca1609b0;
     --accent: #fad50167;
   }
+
+  body {
+    background-image: url(./images/Release2bg.webp);
+    background-size: cover; 
+    background-position: center;
+    height: 100%; 
+    width: 100%;
+  }
   /* #container { margin: 0%; }
   #circle { position: relative; width: 100%; padding-bottom: 100%; overflow: hidden; }
   #circle text { font-family: 'Helvetica Neue', Arial; font-size: 16px; font-weight: bold; }

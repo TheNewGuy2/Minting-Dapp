@@ -261,7 +261,6 @@ function Index() {
         flex={1}
         ai={"center"}
         style={{ padding: 100, ...isMobile && { padding: '100px 0px' } }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/Release2bg.webp" : null}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
                 style={{ cursor: 'pointer' }}
