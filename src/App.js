@@ -9,11 +9,7 @@ const StoreFront = lazy(() => import('./pages/StoreFront/index'));
 function App() {
   
   const Loader = () => {
-    return <div 
-      style={{ backgroundImage: 'url(/config/images/Release2bg.webp)',
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        height: '100%', width: '100%' }}>
-    </div>;
+    return <></>;
   };
 
   return (
