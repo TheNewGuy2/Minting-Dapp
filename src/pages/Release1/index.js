@@ -275,7 +275,7 @@ function Index() {
                 <CircularContainerImg 
                     style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
                     src={'/config/images/circle.png'}
-                    onClick={(e) => window.open("https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit", '_blank') } 
+                    onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
                 />
             }
           </CircularContainer>
