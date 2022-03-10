@@ -147,8 +147,7 @@ function Index() {
             <s.Container
                 flex={1}
                 ai={"center"}
-                style={{ padding: isMobile ? '100px 16px' : '100px', backgroundColor: "var(--primary)" }}
-                image={"/config/images/smallbg.jpg"}
+                style={{ padding: isMobile ? '100px 16px' : '100px' }}
             >
                 <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }}
                                  style={{ cursor: 'pointer' }}
