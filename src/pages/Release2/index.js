@@ -267,10 +267,12 @@ function Index() {
                 onClick={(e) => navigate('/home', '_top') } />
         <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
           <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
-            { !blockchain.account && <a href="https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit"> <CircularContainerImg 
-                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
-                src={'/config/images/circle.png'}
-              /></a>
+          { !blockchain.account && 
+                <CircularContainerImg 
+                    style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                    src={'/config/images/circle.png'}
+                    onClick={(e) => window.open("https://docs.google.com/document/d/1S3fmB0Rhcr3-FSOhZ669YFFpKAofli43awwsBwNYIx4/edit", '_blank') } 
+                />
             }
           </CircularContainer>
           <SunContainer 
