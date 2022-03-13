@@ -39,8 +39,8 @@ var center = {
     y: $('.eye').height() / 2 - r
 };
 var distanceThreshold = $('.eye').width() / 2 - r;
-var xp = 15;
-var yp = 15;
+var xp = 45;
+var yp = 55;
 
 // entry point
 init();
@@ -275,7 +275,7 @@ $(window).mousemove(function (e) {
     lidBottom.modifier = lidModifier;
 
     // pupil "focuses" the closer the mouse is
-    if (distance < 100) {
+    if (distance < 200) {
         pupil.sizeGoal = lidModifier * 30;
     }
     else {
@@ -288,9 +288,9 @@ $(window).mousemove(function (e) {
 
 // move eye according to mouse movement
 function followMouse() {
-    var lerpSpeed = 0.12;
-    xp = interpolate(xp, mouse.x, 0, lerpSpeed);
-    yp = interpolate(yp, mouse.y, 0, lerpSpeed);
+    var lerpSpeed = 0.22;
+    xp = interpolate(xp, mouse.x, 10, lerpSpeed);
+    yp = interpolate(yp, mouse.y, 10, lerpSpeed);
 
     var distance = Math.sqrt((mouse.x - mouse.oldX) * (mouse.x - mouse.oldX) +
         (mouse.y - mouse.oldY) * (mouse.y - mouse.oldY));

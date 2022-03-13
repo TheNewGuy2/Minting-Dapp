@@ -4,6 +4,8 @@ const Home = lazy(() => import('./pages/Home/index'));
 const Release1 = lazy(() => import('./pages/Release1/index'));
 const Release2 = lazy(() => import('./pages/Release2/index'));
 const Release3 = lazy(() => import('./pages/Release3/index'));
+const Dailys = lazy(() => import('./pages/Dailys/index'));
+const MasterKey = lazy(() => import('./pages/MasterKey/index'));
 const StoreFront = lazy(() => import('./pages/StoreFront/index'));
 
 function App() {
@@ -38,6 +40,18 @@ function App() {
             path='/release3'
             element={
               <Release3 />
+            }
+          />
+          <Route
+            path='/dailys'
+            element={
+              <Dailys />
+            }
+          />
+          <Route
+            path='/masterkey'
+            element={
+              <MasterKey />
             }
           />
           <Route
