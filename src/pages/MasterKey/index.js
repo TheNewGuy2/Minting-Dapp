@@ -107,8 +107,9 @@ function Index() {
                         </div>
                     }
                     { !isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
+                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', cursor: 'pointer' }}
+                            onClick={(e) => navigate('/home', '_blank') } 
+                                    >
                         </div>
                     }
                     { !isMobile && <div
@@ -117,8 +118,9 @@ function Index() {
                         </div>
                     }
                     <div
-                        style={{ height: 155, width: 155, position: 'relative' }}
-                    >
+                        style={{ height: 155, width: 155, position: 'relative', cursor: 'pointer'  }}
+                        onClick={(e) => navigate('/home', '_blank') } 
+                        >
                         <div className="eye">
                             <div className="iris">
                                 <div className="pupil">
@@ -141,10 +143,10 @@ function Index() {
                                         <SunContainer 
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate('/masterkey');
+                                                navigate('/release1');
                                             }}
                                         >
-                                            MasterKey
+                                            SS_22
                                         </SunContainer>
                                     </SunWrapper>
                                 </div>
@@ -153,10 +155,22 @@ function Index() {
                                         <SunContainer 
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate('/dailys');
+                                                navigate('/release2');
                                             }}
                                         >
-                                            DAILYS
+                                            SS_11
+                                        </SunContainer>
+                                    </SunWrapper>
+                                </div>
+                                <div>
+                                    <SunWrapper>
+                                        <SunContainer 
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate('/release3');
+                                            }}
+                                        >
+                                            SS_33
                                         </SunContainer>
                                     </SunWrapper>
                                 </div>

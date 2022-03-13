@@ -151,8 +151,8 @@ function Index() {
             >
                 <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ marginBottom: '30px' }}
                                  style={{ cursor: 'pointer' }}
-                                 onClick={(e) => window.open('/home', '_blank') } />
-                <s.SpacerMedium />
+                                 onClick={(e) => navigate('/home', '_blank') } />
+                                 <s.SpacerMedium />
                 { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && 
                     <StoreFrontContainer
                         style={{ flexDirection: isMobile ? 'column' : 'row' }}
