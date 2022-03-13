@@ -1,24 +1,20 @@
-# Welcome to HashLips 👄
+# Welcome to TZΞVAOT
 
-![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/logo.png)
+![](https://github.com/TheNewGuy2/Minting-Dapp/logo.png)
 
 All the code in these repos was created and explained by HashLips on the main YouTube channel.
 
 To find out more please visit:
 
-[📺 YouTube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA)
 
-[👄 Discord](https://discord.com/invite/qh6MWhMJDN)
 
-[💬 Telegram](https://t.me/hashlipsnft)
+[🐦 Twitter](https://twitter.com/therealtzevaot)
 
-[🐦 Twitter](https://twitter.com/hashlipsnft)
+[ℹ️ Website](https://tzevaot.app)
 
-[ℹ️ Website](https://hashlips.online/HashLips)
+# Made from HashLips NFT minting dapp 🔥
 
-# HashLips NFT minting dapp 🔥
-
-![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/banner.png)
+![](https://github.com/TheNewGuy2/Minting-Dapp/blob/main/banner.png)
 
 This repo provides a nice and easy way for linking an existing NFT smart contract to this minting dapp. There are two ways of using this repo, you can go the simple route or the more complex one.
 
@@ -31,8 +27,8 @@ The more complex route allows you to add additional functionality if you are com
 If you are cloning the project then run this first, otherwise you can download the source code on the release page and skip this step.
 
 ```sh
-git clone https://github.com/HashLips/hashlips_nft_minting_dapp.git
-```
+git clone https://github.com/TheNewGuy2/Minting-Dapp.git
+
 
 Make sure you have node.js installed so you can use npm, then run:
 
@@ -95,8 +91,8 @@ Now you will need to create and change the `public/favicon.ico`, `public/logo192
 Remember to update the title and description the `public/index.html` file
 
 ```html
-<title>Nerdy Coder Clones</title>
-<meta name="description" content="Mint your Nerdy Coder Clone NFT" />
+<title>TZΞVAOT</title>
+<meta name="description" content="Mint your TZΞVAOT NFT" />
 ```
 
 Also remember to update the short_name and name fields in the `public/manifest.json` file
