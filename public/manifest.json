@@ -1,6 +1,6 @@
 {
-  "short_name": "SS_22",
-  "name": "sunset_22",
+  "short_name": "TZΞVAOT",
+  "name": "TZΞVAOT",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +19,5 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#ba4914",
-  "background_color": "#ba4914"
-}
+  "display": "standalone"
+ 
