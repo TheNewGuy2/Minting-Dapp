@@ -1235,19 +1235,21 @@ pragma solidity >=0.7.0 <0.9.0;
 contract Dailys is ERC721Enumerable, Ownable {
 
 
-
-
-
   using Strings for uint256;
 
   string baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 0.020 ether;
-  uint256 public maxSupply = 999;
+  uint256 public cost = .02 ether;
+  uint256 public maxSupply = 365;
   uint256 public maxMintAmount = 1;
-  bool public paused = true;
-  bool public revealed = false;
+  uint256 public dailyMintAmount = 1;
+  bool public paused = false;
+  bool public revealed = true;
   string public notRevealedUri;
+  uint256 count;
+  uint256 public baseCost = .02 ether;
+  uint256 public priceMultiplier = 2;
+
 
   constructor(
     string memory _name,
@@ -1264,6 +1266,7 @@ contract Dailys is ERC721Enumerable, Ownable {
     return baseURI;
   }
 
+
   // public
   function mint(uint256 _mintAmount) public payable {
     uint256 supply = totalSupply();
@@ -1275,10 +1278,14 @@ contract Dailys is ERC721Enumerable, Ownable {
     if (msg.sender != owner()) {
       require(msg.value >= cost * _mintAmount);
     }
+    
+      _safeMint(msg.sender, supply + 1);
+      cost = cost * priceMultiplier;
 
-    for (uint256 i = 1; i <= _mintAmount; i++) {
-      _safeMint(msg.sender, supply + i);
-    }
+      if(totalSupply() % dailyMintAmount == 0){
+          paused = true;
+          cost = baseCost;
+      }
   }
 
   function walletOfOwner(address _owner)
@@ -1325,8 +1332,19 @@ contract Dailys is ERC721Enumerable, Ownable {
     cost = _newCost;
   }
 
+  function setbaseCost(uint256 _baseCost) public onlyOwner {
+    baseCost = _baseCost;
+  }
+
   function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
     maxMintAmount = _newmaxMintAmount;
+  }
+  
+  function setdailyMintAmount(uint256 _newdailyMintAmount) public onlyOwner {
+    dailyMintAmount = _newdailyMintAmount;
+  }
+  function setpriceMultiplier(uint256 _newpriceMultiplier) public onlyOwner {
+    priceMultiplier = _newpriceMultiplier;
   }
   
   function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
@@ -1346,18 +1364,21 @@ contract Dailys is ERC721Enumerable, Ownable {
   }
  
   function withdraw() public payable onlyOwner {
-    // This will pay TheNewGuy 5% of the initial sale.
-    // You can remove this if you want, or keep it in to support HashLips and his channel.
+    // This will pay TheNewGuy 15% of the initial sale.
     // =============================================================================
     (bool hs, ) = payable(0xa9fa85E69aedA99bd5B388A427aEbe3D02bAD7A5).call{value: address(this).balance * 15 / 100}("");
     require(hs);
-    // This will pay LessThanVinnie 5% of the initial sale.
-    // You can remove this if you want, or keep it in to support HashLips and his channel.
+    // This will pay LessThanVinnie 15% of the initial sale.
     // =============================================================================
     (bool lv, ) = payable(0x31493a1D44984a700ADa235f190bDd1D0d9a3C8C).call{value: address(this).balance * 15 / 100}("");
     require(lv);
     // ========================1=====================================================
     
+    // This will pay AJ 10% of the initial sale.
+    // =============================================================================
+    (bool aj, ) = payable(0x5ca4250d3acfA85f84918aC810A47226550F093a).call{value: address(this).balance * 10 / 100}("");
+    require(aj);
+
     // This will payout the owner 60% of the contract balance.
     // Do not remove this otherwise you will not be able to withdraw the funds.
     // =============================================================================
