@@ -679,16 +679,16 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
 
-        string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+        string memory auctionURI = _auctionURI();
+        return bytes(auctionURI).length > 0 ? string(abi.encodePacked(auctionURI, tokenId.toString())) : "";
     }
 
     /**
      * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
-     * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
+     * token will be the concatenation of the `auctionURI` and the `tokenId`. Empty
      * by default, can be overriden in child contracts.
      */
-    function _baseURI() internal view virtual returns (string memory) {
+    function _auctionURI() internal view virtual returns (string memory) {
         return "";
     }
 
@@ -1237,33 +1237,36 @@ contract Dailys is ERC721Enumerable, Ownable {
 
   using Strings for uint256;
 
-  string baseURI;
+  string auctionURI;
+  uint startingTime;
+  uint endTime;
   string public baseExtension = ".json";
   uint256 public cost = .02 ether;
   uint256 public maxSupply = 365;
   uint256 public maxMintAmount = 1;
-  uint256 public dailyMintAmount = 1;
+  uint256 public maxDailyCopies = 5;
   bool public paused = false;
   bool public revealed = true;
-  string public notRevealedUri;
+  string public stagingURI;
   uint256 count;
   uint256 public baseCost = .02 ether;
-  uint256 public priceMultiplier = 2;
+  uint256 public costMultiplier = 5;
+  uint256 public auctionDuration = 5;
 
 
   constructor(
     string memory _name,
     string memory _symbol,
-    string memory _initBaseURI,
-    string memory _initNotRevealedUri
+    string memory _initauctionURI,
+    string memory _initstagingURI
   ) ERC721(_name, _symbol) {
-    setBaseURI(_initBaseURI);
-    setNotRevealedURI(_initNotRevealedUri);
+    setauctionURI(_initauctionURI);
+    setstagingURI(_initstagingURI);
   }
 
   // internal
-  function _baseURI() internal view virtual override returns (string memory) {
-    return baseURI;
+  function _auctionURI() internal view virtual override returns (string memory) {
+    return auctionURI;
   }
 
 
@@ -1275,17 +1278,27 @@ contract Dailys is ERC721Enumerable, Ownable {
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
 
+
+
     if (msg.sender != owner()) {
       require(msg.value >= cost * _mintAmount);
     }
-    
-      _safeMint(msg.sender, supply + 1);
-      cost = cost * priceMultiplier;
 
-      if(totalSupply() % dailyMintAmount == 0){
+    if(block.timestamp >= startingTime + 3 minutes){
           paused = true;
           cost = baseCost;
       }
+    else
+    {
+      _safeMint(msg.sender, supply + 1);
+      cost = cost * costMultiplier;
+
+      if(totalSupply() % maxDailyCopies == 0){
+          paused = true;
+          cost = baseCost;
+      }
+
+    }
   }
 
   function walletOfOwner(address _owner)
@@ -1314,12 +1327,12 @@ contract Dailys is ERC721Enumerable, Ownable {
     );
     
     if(revealed == false) {
-        return notRevealedUri;
+        return stagingURI;
     }
 
-    string memory currentBaseURI = _baseURI();
-    return bytes(currentBaseURI).length > 0
-        ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension))
+    string memory currentauctionURI = _auctionURI();
+    return bytes(currentauctionURI).length > 0
+        ? string(abi.encodePacked(currentauctionURI, tokenId.toString(), baseExtension))
         : "";
   }
 
@@ -1340,19 +1353,24 @@ contract Dailys is ERC721Enumerable, Ownable {
     maxMintAmount = _newmaxMintAmount;
   }
   
-  function setdailyMintAmount(uint256 _newdailyMintAmount) public onlyOwner {
-    dailyMintAmount = _newdailyMintAmount;
+  function setmaxDailyCopies(uint256 _newmaxDailyCopies) public onlyOwner {
+    maxDailyCopies = _newmaxDailyCopies;
   }
-  function setpriceMultiplier(uint256 _newpriceMultiplier) public onlyOwner {
-    priceMultiplier = _newpriceMultiplier;
+  function setcostMultiplier(uint256 _newcostMultiplier) public onlyOwner {
+    costMultiplier = _newcostMultiplier;
   }
   
-  function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
-    notRevealedUri = _notRevealedURI;
+  function setstagingURI(string memory _stagingURI) public onlyOwner {
+    auctionURI = stagingURI;
+    stagingURI = _stagingURI;
+    startingTime = block.timestamp;
+    paused = false;
+
+
   }
 
-  function setBaseURI(string memory _newBaseURI) public onlyOwner {
-    baseURI = _newBaseURI;
+  function setauctionURI(string memory _newauctionURI) public onlyOwner {
+    auctionURI = _newauctionURI;
   }
 
   function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
