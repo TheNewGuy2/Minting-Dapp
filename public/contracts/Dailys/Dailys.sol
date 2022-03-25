@@ -1361,9 +1361,9 @@ abstract contract Ownable is Context {
 pragma solidity >=0.7.0 <0.9.0;
 
 contract Dailys is ERC721Enumerable, Ownable {
-
     mapping(string => bool) private takenNames;
     mapping(uint256 => Attr) public attributes;
+
 
     struct Attr {
         string name;
@@ -1373,24 +1373,43 @@ contract Dailys is ERC721Enumerable, Ownable {
         uint8 defence; 
     }
 
+    struct Character {
+        uint256 strength;
+        uint256 dexterity;
+        uint256 constitution;
+        uint256 intelligence;
+        uint256 wisdom;
+        uint256 charisma;
+        uint256 experience;
+        string name;
+    }
+
+    Character[] public characters;
+
+    mapping(bytes32 => string) requestToCharacterName;
+    mapping(bytes32 => address) requestToSender;
+    mapping(bytes32 => uint256) requestToTokenId;
+
+
 
   using Strings for uint256;
 
   string auctionURI;
   uint startingTime;
   uint endTime;
+  uint256 public remaningTime;
   string public baseExtension = ".json";
-  uint256 public cost = .02 ether;
+  uint256 public cost = .002 ether;
   uint256 public maxSupply = 365;
   uint256 public maxMintAmount = 1;
   uint256 public maxDailyCopies = 5;
   bool public paused = false;
   bool public revealed = true;
   string public stagingURI;
-  uint256 count;
-  uint256 public baseCost = .02 ether;
+  uint256 public count = 1;
+  uint256 public baseCost = .002 ether;
   uint256 public costMultiplier = 5;
-  uint256 public auctionDuration = 5;
+  uint256 public auctionDuration = 86400;
 
 
   constructor(
@@ -1408,9 +1427,28 @@ contract Dailys is ERC721Enumerable, Ownable {
     return auctionURI;
   }
 
+  function randModulus(uint mod) external view returns(uint) {
+      return uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))) % mod;
+
+  }
+
+  function remainingTime(uint) external view returns(uint) {
+      return uint((startingTime + auctionDuration) - block.timestamp);
+
+  }
+
+
+
 
   // public
-  function mint(uint256 _mintAmount) public payable {
+  function mint(uint256 _mintAmount, uint256 tokenId, string memory _name,
+        string memory _material, 
+        uint8 _speed, 
+        uint8 _attack, 
+        uint8 _defence) public payable {
+    attributes[tokenId] = Attr( _name, _material, _speed, _attack, _defence);
+
+    
     uint256 supply = totalSupply();
     require(!paused);
     require(_mintAmount > 0);
@@ -1423,18 +1461,22 @@ contract Dailys is ERC721Enumerable, Ownable {
       require(msg.value >= cost * _mintAmount);
     }
 
-    if(block.timestamp >= startingTime + 3 minutes){
+    if(block.timestamp >= startingTime + auctionDuration){
           paused = true;
           cost = baseCost;
+          count = 1;
       }
     else
     {
       _safeMint(msg.sender, supply + 1);
       cost = cost * costMultiplier;
+      count = count + 1;
 
       if(totalSupply() % maxDailyCopies == 0){
           paused = true;
           cost = baseCost;
+          count = 1;
+
       }
 
     }
@@ -1475,10 +1517,40 @@ contract Dailys is ERC721Enumerable, Ownable {
     }
 
 
+    function fulfillRandomness(bytes32 requestId, uint256 randomNumber)
+        internal
+        
+    {
+        uint256 newId = characters.length;
+        uint256 strength = (randomNumber % 100);
+        uint256 dexterity = ((randomNumber % 10000) / 100 );
+        uint256 constitution = ((randomNumber % 1000000) / 10000 );
+        uint256 intelligence = ((randomNumber % 100000000) / 1000000 );
+        uint256 wisdom = ((randomNumber % 10000000000) / 100000000 );
+        uint256 charisma = ((randomNumber % 1000000000000) / 10000000000);
+        uint256 experience = 0;
+
+        characters.push(
+            Character(
+                strength,
+                dexterity,
+                constitution,
+                intelligence,
+                wisdom,
+                charisma,
+                experience,
+                requestToCharacterName[requestId]
+            )
+        );
+        _safeMint(requestToSender[requestId], newId);
+    }
 
 
 
-    function tokenURI(uint256 tokenId) override(ERC721) public view returns (string memory) {
+
+
+
+    function tokenURI(uint256 tokenId) override (ERC721) public view returns (string memory) {
         string memory json = Base64.encode(
             bytes(string(
                 abi.encodePacked(
@@ -1500,6 +1572,9 @@ contract Dailys is ERC721Enumerable, Ownable {
       revealed = true;
   }
   
+  function setauctionDuration(uint256 _newauctionDuration) public onlyOwner {
+    auctionDuration = _newauctionDuration;
+  }
   function setCost(uint256 _newCost) public onlyOwner {
     cost = _newCost;
   }
@@ -1523,6 +1598,7 @@ contract Dailys is ERC721Enumerable, Ownable {
     auctionURI = stagingURI;
     stagingURI = _stagingURI;
     startingTime = block.timestamp;
+    cost = baseCost;
     paused = false;
 
 
