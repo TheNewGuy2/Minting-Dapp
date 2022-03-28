@@ -1391,13 +1391,24 @@ contract Dailys is ERC721Enumerable, Ownable {
     mapping(bytes32 => uint256) requestToTokenId;
 
 
+    mapping(string => bool) private takenNames;
+    mapping(uint256 => Attr) public attributes;
+
+    struct Attr {
+        string name;
+        uint edition;
+        uint masterNumber;
+    }
+
 
   using Strings for uint256;
 
   string auctionURI;
+  string auctionName;
+  string stagingName;
   uint startingTime;
   uint endTime;
-  uint256 public remaningTime;
+  uint randNonce = 0;  
   string public baseExtension = ".json";
   uint256 public cost = .002 ether;
   uint256 public maxSupply = 365;
@@ -1406,7 +1417,7 @@ contract Dailys is ERC721Enumerable, Ownable {
   bool public paused = false;
   bool public revealed = true;
   string public stagingURI;
-  uint256 public count = 1;
+  uint8 public count = 1;
   uint256 public baseCost = .002 ether;
   uint256 public costMultiplier = 5;
   uint256 public auctionDuration = 86400;
@@ -1416,14 +1427,17 @@ contract Dailys is ERC721Enumerable, Ownable {
     string memory _name,
     string memory _symbol,
     string memory _initauctionURI,
-    string memory _initstagingURI
+    string memory _initauctionName,
+    string memory _initstagingURI,
+    string memory _initstagingName
   ) ERC721(_name, _symbol) {
-    setauctionURI(_initauctionURI);
-    setstagingURI(_initstagingURI);
+    setauctionURI(_initauctionURI, _initauctionName);
+    setstagingURI(_initstagingURI, _initstagingName);
   }
 
   // internal
   function _auctionURI() internal view virtual override returns (string memory) {
+
     return auctionURI;
   }
 
@@ -1436,24 +1450,22 @@ contract Dailys is ERC721Enumerable, Ownable {
       return uint((startingTime + auctionDuration) - block.timestamp);
 
   }
-
-
-
+  function randMod(uint _modulus) internal returns(uint) {
+    randNonce++;
+    return uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, randNonce))) % _modulus;
+  }
 
   // public
-  function mint(uint256 _mintAmount, uint256 tokenId, string memory _name,
-        string memory _material, 
-        uint8 _speed, 
-        uint8 _attack, 
-        uint8 _defence) public payable {
-    attributes[tokenId] = Attr( _name, _material, _speed, _attack, _defence);
+  function mint(uint256 _mintAmount) public payable {
 
-    
     uint256 supply = totalSupply();
     require(!paused);
     require(_mintAmount > 0);
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
+    uint256 tokenId = supply + _mintAmount;
+    uint256 rand = randMod(100);
+    attributes[tokenId] = Attr(auctionName, count, rand);
 
 
 
@@ -1556,10 +1568,8 @@ contract Dailys is ERC721Enumerable, Ownable {
                 abi.encodePacked(
                     '{"name": "', attributes[tokenId].name, '",',
                     '"image": "', auctionURI, '",',
-                    '"attributes": [{"trait_type": "Speed", "value": ', uint2str(attributes[tokenId].speed), '},',
-                    '{"trait_type": "Attack", "value": ', uint2str(attributes[tokenId].attack), '},',
-                    '{"trait_type": "Defence", "value": ', uint2str(attributes[tokenId].defence), '},',
-                    '{"trait_type": "Material", "value": "', attributes[tokenId].material, '"}',
+                    '"attributes": [{"trait_type": "edition", "value": ', uint2str(attributes[tokenId].edition), '},',
+                    '{"trait_type": "masterNumber", "value": ', uint2str(attributes[tokenId].masterNumber), '}',
                     ']}'
                 )
             ))
@@ -1594,18 +1604,22 @@ contract Dailys is ERC721Enumerable, Ownable {
     costMultiplier = _newcostMultiplier;
   }
   
-  function setstagingURI(string memory _stagingURI) public onlyOwner {
+  function setstagingURI(string memory _stagingURI, string memory _stagingName) public onlyOwner {
+    auctionName = stagingName;
+    stagingName = _stagingName;
     auctionURI = stagingURI;
     stagingURI = _stagingURI;
     startingTime = block.timestamp;
     cost = baseCost;
     paused = false;
+    count = 1;
 
 
   }
 
-  function setauctionURI(string memory _newauctionURI) public onlyOwner {
+  function setauctionURI(string memory _newauctionURI, string memory _newauctionName) public onlyOwner {
     auctionURI = _newauctionURI;
+    auctionName = _newauctionName;
   }
 
   function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
