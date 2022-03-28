@@ -214,7 +214,7 @@ function Index() {
   };
 
   const getConfig = async () => {
-    const configResponse = await fetch("/config/config3.json", {
+    const configResponse = await fetch("/config/config4.json", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -276,15 +276,17 @@ function Index() {
             }
           </CircularContainer>
           <SunContainer 
+          
             style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
           >
             <s.Container
+            
               flex={1}
               jc={"center"}
               ai={"center"}
               className="outer_body"
               style={{
-                backgroundColor: "var(--accent)",
+                backgroundColor: 'src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`}',
                 padding: 10,
                 borderRadius: '50%',
                 border: "2px dashed var(--secondary)",
