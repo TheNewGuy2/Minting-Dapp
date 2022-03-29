@@ -1361,6 +1361,35 @@ abstract contract Ownable is Context {
 pragma solidity >=0.7.0 <0.9.0;
 
 contract Dailys is ERC721Enumerable, Ownable {
+    mapping(string => bool) private takenNames;
+    mapping(uint256 => Attr) public attributes;
+
+
+    struct Attr {
+        string name;
+        string material;
+        uint8 speed;
+        uint8 attack;
+        uint8 defence; 
+    }
+
+    struct Character {
+        uint256 strength;
+        uint256 dexterity;
+        uint256 constitution;
+        uint256 intelligence;
+        uint256 wisdom;
+        uint256 charisma;
+        uint256 experience;
+        string name;
+    }
+
+    Character[] public characters;
+
+    mapping(bytes32 => string) requestToCharacterName;
+    mapping(bytes32 => address) requestToSender;
+    mapping(bytes32 => uint256) requestToTokenId;
+
 
     mapping(string => bool) private takenNames;
     mapping(uint256 => Attr) public attributes;
@@ -1500,6 +1529,36 @@ contract Dailys is ERC721Enumerable, Ownable {
     }
 
 
+    function fulfillRandomness(bytes32 requestId, uint256 randomNumber)
+        internal
+        
+    {
+        uint256 newId = characters.length;
+        uint256 strength = (randomNumber % 100);
+        uint256 dexterity = ((randomNumber % 10000) / 100 );
+        uint256 constitution = ((randomNumber % 1000000) / 10000 );
+        uint256 intelligence = ((randomNumber % 100000000) / 1000000 );
+        uint256 wisdom = ((randomNumber % 10000000000) / 100000000 );
+        uint256 charisma = ((randomNumber % 1000000000000) / 10000000000);
+        uint256 experience = 0;
+
+        characters.push(
+            Character(
+                strength,
+                dexterity,
+                constitution,
+                intelligence,
+                wisdom,
+                charisma,
+                experience,
+                requestToCharacterName[requestId]
+            )
+        );
+        _safeMint(requestToSender[requestId], newId);
+    }
+
+
+
 
 
 
@@ -1523,6 +1582,9 @@ contract Dailys is ERC721Enumerable, Ownable {
       revealed = true;
   }
   
+  function setauctionDuration(uint256 _newauctionDuration) public onlyOwner {
+    auctionDuration = _newauctionDuration;
+  }
   function setCost(uint256 _newCost) public onlyOwner {
     cost = _newCost;
   }
