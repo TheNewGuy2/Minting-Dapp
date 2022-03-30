@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "../../redux/blockchain/blockchainActions3";
-import { fetchData } from "../../redux/data/dataActions3";
+import { connect } from "../../redux/blockchain/blockchainActions4";
+import { fetchData } from "../../redux/data/dataActions4";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import Slider from "react-slick";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -132,8 +133,8 @@ const BottomRightCornerImg = styled.img`
 
 function Index() {
   const dispatch = useDispatch();
-  const blockchain = useSelector((state) => state.blockchain3);
-  const data = useSelector((state) => state.data3);
+  const blockchain = useSelector((state) => state.blockchain4);
+  const data = useSelector((state) => state.data4);
   const [claimingNft, setClaimingNft] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
@@ -250,6 +251,15 @@ function Index() {
 //  }, [blockchain.NFT_NAME]);
 
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplaySpeed: 30000,
+    cssEase: "linear"
+  };
 
   return (
     <s.Screen>
@@ -263,191 +273,386 @@ function Index() {
         style={{ padding: 100, ...isMobile && { padding: '100px 0px' } }}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
-                style={{ cursor: 'pointer' }}
-                onClick={(e) => navigate('/home', '_blank') } />
-        <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
-          <CircularContainer style={isMobile ? { alignItems: 'center', top: '-35px' } : { top: 0 }}>
-          { !blockchain.account && 
-                <CircularContainerImg 
-                    style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
-                    src={'/config/images/circle.png'}
-                    onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
-                />
-            }
-          </CircularContainer>
-          <SunContainer 
-          
-            style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
-          >
-            <s.Container
-            
-              flex={1}
-              jc={"center"}
-              ai={"center"}
-              className="outer_body"
-              style={{
-                backgroundColor: 'src={`https://gateway.pinata.cloud/ipfs/QmW9SXDm6GmGg9CMYUNJbLsn2h9p3nfc9AtDEz5av1tiqy/${blockchain.isOwnSmartContract[blockchain.isOwnSmartContract.length - 1]}.png`}',
-                padding: 10,
-                borderRadius: '50%',
-                border: "2px dashed var(--secondary)",
-                boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-                position: 'relative',
-                padding: '30px',            
-                ...isMobile && { maxWidth: '300px', height: '300px', margin:'0px auto' }
-              }}
-            >
-              <s.TextTitle
-                style={{
-                  textAlign: "center",
-                  fontSize: isMobile ? 40 : 50,
-                  fontWeight: "bold",
-                  color: "var(--accent-text)",
-                }}
-              >
-                {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-              </s.TextTitle>
-              <s.TextDescription
-                style={{
-                  textAlign: "center",
-                  color: "var(--primary-text)",
-                }}
-              >
-                <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                  {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                </StyledLink>
-              </s.TextDescription>
-              <s.SpacerSmall />
-              {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
-                <>
-                  <s.TextTitle
-                    style={{ textAlign: "center", color: "var(--accent-text)" }}
-                  >
-                    The sale has ended.
-                  </s.TextTitle>
-                  <s.TextDescription
-                    style={{ textAlign: "center", color: "var(--accent-text)" }}
-                  >
-                    You can still find {CONFIG.NFT_NAME} on
-                  </s.TextDescription>
-                  <s.SpacerSmall />
-                  <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                    {CONFIG.MARKETPLACE}
-                  </StyledLink>
-                </>
-              ) : (
-                <>
-                  <s.TextTitle
-                    style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
-                  >
-                    1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                    {CONFIG.NETWORK.SYMBOL}.
-                  </s.TextTitle>
-                  <s.SpacerXSmall />
-                  <s.TextDescription
-                    style={{ textAlign: "center", color: "var(--primary-text)" }}
-                  >
-                    Excluding gas fees.
-                  </s.TextDescription>
-                  <s.SpacerSmall />
-                  {blockchain.account === "" ||
-                    blockchain.smartContract === null ? (
-                    <s.Container ai={"center"} jc={"center"}>
-                      <s.TextDescription
-                        style={{
-                          textAlign: "center",
-                          color: "var(--accent-text)",
-                          ...isMobile && { fontSize: '14px' }
-                        }}
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => navigate('/home', '_blank') } />
+          {/* <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test> */}
+            <div style={{ width: isMobile ? '300px' : '500px' }}>
+              <Slider {...settings}>
+                <div>
+                    <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
+                      <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
+                      { !blockchain.account && 
+                            <CircularContainerImg 
+                                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                                src={'/config/images/circle.png'}
+                                onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
+                            />
+                      }
+                      </CircularContainer>
+                      <SunContainer 
+                        style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
                       >
-                        Connect to the {CONFIG.NETWORK.NAME} network
-                      </s.TextDescription>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          dispatch(connect());
-                          getData();
-                        }}
-                      >
-                        CONNECT
-                      </StyledButton>
-                      {blockchain.errorMsg !== "" ? (
-                        <>
-                          <s.SpacerSmall />
+                        <s.Container
+                          flex={1}
+                          jc={"center"}
+                          ai={"center"}
+                          className="outer_body"
+                          style={{
+                            backgroundColor: 'rgba(255,255,255,0.4)',
+                            backgroundBlendMode: 'lighten',
+                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            padding: 10,
+                            borderRadius: '50%',
+                            border: "2px dashed var(--secondary)",
+                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+                            position: 'relative',
+                            padding: '30px',            
+                            ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
+                          }}
+                        >
+                          <s.TextTitle
+                            style={{
+                              textAlign: "center",
+                              fontSize: isMobile ? 40 : 50,
+                              fontWeight: "bold",
+                              color: "var(--accent-text)",
+                            }}
+                          >
+                            {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+                          </s.TextTitle>
                           <s.TextDescription
                             style={{
                               textAlign: "center",
                               color: "var(--primary-text)",
                             }}
                           >
-                            {blockchain.errorMsg}
+                            <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+                              {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+                            </StyledLink>
                           </s.TextDescription>
-                        </>
-                      ) : null}
-                    </s.Container>
-                  ) : (
-                    <>
-                      <s.TextDescription
-                        style={{
-                          textAlign: "center",
-                          color: "var(--accent-text)",
-                        }}
+                          <s.SpacerSmall />
+                          {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                            <>
+                              <s.TextTitle
+                                style={{ textAlign: "center", color: "var(--accent-text)" }}
+                              >
+                                The sale has ended.
+                              </s.TextTitle>
+                              <s.TextDescription
+                                style={{ textAlign: "center", color: "var(--accent-text)" }}
+                              >
+                                You can still find {CONFIG.NFT_NAME} on
+                              </s.TextDescription>
+                              <s.SpacerSmall />
+                              <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                                {CONFIG.MARKETPLACE}
+                              </StyledLink>
+                            </>
+                          ) : (
+                            <>
+                              <s.TextTitle
+                                style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
+                              >
+                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                                {CONFIG.NETWORK.SYMBOL}.
+                              </s.TextTitle>
+                              <s.SpacerXSmall />
+                              <s.TextDescription
+                                style={{ textAlign: "center", color: "var(--primary-text)" }}
+                              >
+                                Excluding gas fees.
+                              </s.TextDescription>
+                              <s.SpacerSmall />
+                              {blockchain.account === "" ||
+                                blockchain.smartContract === null ? (
+                                <s.Container ai={"center"} jc={"center"}>
+                                  <s.TextDescription
+                                    style={{
+                                      textAlign: "center",
+                                      color: "var(--accent-text)",
+                                      ...isMobile && { fontSize: '14px' }
+                                    }}
+                                  >
+                                    Connect to the {CONFIG.NETWORK.NAME} network
+                                  </s.TextDescription>
+                                  <s.SpacerSmall />
+                                  <StyledButton
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      dispatch(connect());
+                                      getData();
+                                    }}
+                                  >
+                                    CONNECT
+                                  </StyledButton>
+                                  {blockchain.errorMsg !== "" ? (
+                                    <>
+                                      <s.SpacerSmall />
+                                      <s.TextDescription
+                                        style={{
+                                          textAlign: "center",
+                                          color: "var(--primary-text)",
+                                        }}
+                                      >
+                                        {blockchain.errorMsg}
+                                      </s.TextDescription>
+                                    </>
+                                  ) : null}
+                                </s.Container>
+                              ) : (
+                                <>
+                                  <s.TextDescription
+                                    style={{
+                                      textAlign: "center",
+                                      color: "var(--accent-text)",
+                                    }}
+                                  >
+                                    {feedback}
+                                  </s.TextDescription>
+                                  <s.SpacerMedium />
+                                  <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                    <StyledRoundButton
+                                      style={{ lineHeight: 0.4 }}
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        decrementMintAmount();
+                                      }}
+                                    >
+                                      -
+                                    </StyledRoundButton>
+                                    <s.SpacerMedium />
+                                    <s.TextDescription
+                                      style={{
+                                        textAlign: "center",
+                                        color: "var(--accent-text)",
+                                      }}
+                                    >
+                                      {mintAmount}
+                                    </s.TextDescription>
+                                    <s.SpacerMedium />
+                                    <StyledRoundButton
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        incrementMintAmount();
+                                      }}
+                                    >
+                                      +
+                                    </StyledRoundButton>
+                                  </s.Container>
+                                  <s.SpacerSmall />
+                                  <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                    <StyledButton
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        claimNFTs();
+                                        getData();
+                                      }}
+                                    >
+                                      {claimingNft ? "BUSY" : "BUY"}
+                                    </StyledButton>
+                                  </s.Container>
+                                </>
+                              )}
+                            </>
+                          )}
+                          <s.SpacerMedium />
+                        </s.Container>
+                      </SunContainer>
+                    </ResponsiveWrapper>
+                </div>
+                <div>
+                    <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
+                      <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
+                      { !blockchain.account && 
+                            <CircularContainerImg 
+                                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                                src={'/config/images/circle.png'}
+                                onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
+                            />
+                        }
+                      </CircularContainer>
+                      <SunContainer 
+                        style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
                       >
-                        {feedback}
-                      </s.TextDescription>
-                      <s.SpacerMedium />
-                      <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                        <StyledRoundButton
-                          style={{ lineHeight: 0.4 }}
-                          disabled={claimingNft ? 1 : 0}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            decrementMintAmount();
-                          }}
-                        >
-                          -
-                        </StyledRoundButton>
-                        <s.SpacerMedium />
-                        <s.TextDescription
+                        <s.Container
+                        
+                          flex={1}
+                          jc={"center"}
+                          ai={"center"}
+                          className="outer_body"
                           style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
+                            backgroundColor: 'rgba(255,255,255,0.4)',
+                            backgroundBlendMode: 'lighten',
+                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            padding: 10,
+                            borderRadius: '50%',
+                            border: "2px dashed var(--secondary)",
+                            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+                            position: 'relative',
+                            padding: '30px',       
+                            ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
                           }}
                         >
-                          {mintAmount}
-                        </s.TextDescription>
-                        <s.SpacerMedium />
-                        <StyledRoundButton
-                          disabled={claimingNft ? 1 : 0}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            incrementMintAmount();
-                          }}
-                        >
-                          +
-                        </StyledRoundButton>
-                      </s.Container>
-                      <s.SpacerSmall />
-                      <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                        <StyledButton
-                          disabled={claimingNft ? 1 : 0}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            claimNFTs();
-                            getData();
-                          }}
-                        >
-                          {claimingNft ? "BUSY" : "BUY"}
-                        </StyledButton>
-                      </s.Container>
-                    </>
-                  )}
-                </>
-              )}
-              <s.SpacerMedium />
-            </s.Container>
-          </SunContainer>
-        </ResponsiveWrapper>
+                          <s.TextTitle
+                            style={{
+                              textAlign: "center",
+                              fontSize: isMobile ? 40 : 50,
+                              fontWeight: "bold",
+                              color: "var(--accent-text)",
+                            }}
+                          >
+                            {/* {data.totalSupply} / {CONFIG.MAX_SUPPLY} */}
+                            Upcoming
+                          </s.TextTitle>
+                          <s.TextDescription
+                            style={{
+                              textAlign: "center",
+                              color: "var(--primary-text)",
+                            }}
+                          >
+                            <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+                              {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+                            </StyledLink>
+                          </s.TextDescription>
+                          <s.SpacerSmall />
+                          {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                            <>
+                              <s.TextTitle
+                                style={{ textAlign: "center", color: "var(--accent-text)" }}
+                              >
+                                The sale has ended.
+                              </s.TextTitle>
+                              <s.TextDescription
+                                style={{ textAlign: "center", color: "var(--accent-text)" }}
+                              >
+                                You can still find {CONFIG.NFT_NAME} on
+                              </s.TextDescription>
+                              <s.SpacerSmall />
+                              <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                                {CONFIG.MARKETPLACE}
+                              </StyledLink>
+                            </>
+                          ) : (
+                            <>
+                              <s.TextTitle
+                                style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
+                              >
+                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                                {CONFIG.NETWORK.SYMBOL}.
+                              </s.TextTitle>
+                              <s.SpacerXSmall />
+                              <s.TextDescription
+                                style={{ textAlign: "center", color: "var(--primary-text)" }}
+                              >
+                                Excluding gas fees.
+                              </s.TextDescription>
+                              <s.SpacerSmall />
+                              {blockchain.account === "" ||
+                                blockchain.smartContract === null ? (
+                                <s.Container ai={"center"} jc={"center"}>
+                                  <s.TextDescription
+                                    style={{
+                                      textAlign: "center",
+                                      color: "var(--accent-text)",
+                                      ...isMobile && { fontSize: '14px' }
+                                    }}
+                                  >
+                                    Connect to the {CONFIG.NETWORK.NAME} network
+                                  </s.TextDescription>
+                                  <s.SpacerSmall />
+                                  {/* <StyledButton
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      dispatch(connect());
+                                      getData();
+                                    }}
+                                  >
+                                    CONNECT
+                                  </StyledButton> */}
+                                  {blockchain.errorMsg !== "" ? (
+                                    <>
+                                      <s.SpacerSmall />
+                                      <s.TextDescription
+                                        style={{
+                                          textAlign: "center",
+                                          color: "var(--primary-text)",
+                                        }}
+                                      >
+                                        {blockchain.errorMsg}
+                                      </s.TextDescription>
+                                    </>
+                                  ) : null}
+                                </s.Container>
+                              ) : (
+                                <>
+                                  <s.TextDescription
+                                    style={{
+                                      textAlign: "center",
+                                      color: "var(--accent-text)",
+                                    }}
+                                  >
+                                    {feedback}
+                                  </s.TextDescription>
+                                  <s.SpacerMedium />
+                                  {/* <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                    <StyledRoundButton
+                                      style={{ lineHeight: 0.4 }}
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        decrementMintAmount();
+                                      }}
+                                    >
+                                      -
+                                    </StyledRoundButton>
+                                    <s.SpacerMedium />
+                                    <s.TextDescription
+                                      style={{
+                                        textAlign: "center",
+                                        color: "var(--accent-text)",
+                                      }}
+                                    >
+                                      {mintAmount}
+                                    </s.TextDescription>
+                                    <s.SpacerMedium />
+                                    <StyledRoundButton
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        incrementMintAmount();
+                                      }}
+                                    >
+                                      +
+                                    </StyledRoundButton>
+                                  </s.Container>
+                                  <s.SpacerSmall /> */}
+                                  {/* <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                    <StyledButton
+                                      disabled={claimingNft ? 1 : 0}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        claimNFTs();
+                                        getData();
+                                      }}
+                                    >
+                                      {claimingNft ? "BUSY" : "BUY"}
+                                    </StyledButton>
+                                  </s.Container> */}
+                                </>
+                              )}
+                            </>
+                          )}
+                          <s.SpacerMedium />
+                        </s.Container>
+                      </SunContainer>
+                    </ResponsiveWrapper>
+                </div>
+              </Slider>
+            </div>
+         {/* </ResponsiveWrapper> */}
         <s.SpacerMedium />
         <s.Container flex={0} jc={"center"} ai={"center"} style={{ width: "50%" }}>
           <s.TextDescription
