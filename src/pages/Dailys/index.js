@@ -139,7 +139,7 @@ function Index() {
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
 
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(``);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -310,26 +310,6 @@ function Index() {
                             ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
                           }}
                         >
-                          <s.TextTitle
-                            style={{
-                              textAlign: "center",
-                              fontSize: isMobile ? 40 : 50,
-                              fontWeight: "bold",
-                              color: "var(--accent-text)",
-                            }}
-                          >
-                            {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-                          </s.TextTitle>
-                          <s.TextDescription
-                            style={{
-                              textAlign: "center",
-                              color: "var(--primary-text)",
-                            }}
-                          >
-                            <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                              {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                            </StyledLink>
-                          </s.TextDescription>
                           <s.SpacerSmall />
                           {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                             <>
@@ -353,16 +333,18 @@ function Index() {
                               <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                                1 {CONFIG.SYMBOL} costs {data.cost}{" "}
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle>
                               <s.SpacerXSmall />
-                              <s.TextDescription
-                                style={{ textAlign: "center", color: "var(--primary-text)" }}
-                              >
-                                Excluding gas fees.
-                              </s.TextDescription>
                               <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerMedium />
                               {blockchain.account === "" ||
                                 blockchain.smartContract === null ? (
                                 <s.Container ai={"center"} jc={"center"}>
@@ -388,14 +370,8 @@ function Index() {
                                   {blockchain.errorMsg !== "" ? (
                                     <>
                                       <s.SpacerSmall />
-                                      <s.TextDescription
-                                        style={{
-                                          textAlign: "center",
-                                          color: "var(--primary-text)",
-                                        }}
-                                      >
-                                        {blockchain.errorMsg}
-                                      </s.TextDescription>
+                                      <s.SpacerSmall />
+                                      <s.SpacerSmall />
                                     </>
                                   ) : null}
                                 </s.Container>
@@ -410,37 +386,7 @@ function Index() {
                                     {feedback}
                                   </s.TextDescription>
                                   <s.SpacerMedium />
-                                  <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                                    <StyledRoundButton
-                                      style={{ lineHeight: 0.4 }}
-                                      disabled={claimingNft ? 1 : 0}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        decrementMintAmount();
-                                      }}
-                                    >
-                                      -
-                                    </StyledRoundButton>
-                                    <s.SpacerMedium />
-                                    <s.TextDescription
-                                      style={{
-                                        textAlign: "center",
-                                        color: "var(--accent-text)",
-                                      }}
-                                    >
-                                      {mintAmount}
-                                    </s.TextDescription>
-                                    <s.SpacerMedium />
-                                    <StyledRoundButton
-                                      disabled={claimingNft ? 1 : 0}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        incrementMintAmount();
-                                      }}
-                                    >
-                                      +
-                                    </StyledRoundButton>
-                                  </s.Container>
+                                  <s.SpacerMedium />
                                   <s.SpacerSmall />
                                   <s.Container ai={"center"} jc={"center"} fd={"row"}>
                                     <StyledButton
@@ -458,7 +404,6 @@ function Index() {
                               )}
                             </>
                           )}
-                          <s.SpacerMedium />
                         </s.Container>
                       </SunContainer>
                     </ResponsiveWrapper>
@@ -544,11 +489,6 @@ function Index() {
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle>
                               <s.SpacerXSmall />
-                              <s.TextDescription
-                                style={{ textAlign: "center", color: "var(--primary-text)" }}
-                              >
-                                Excluding gas fees.
-                              </s.TextDescription>
                               <s.SpacerSmall />
                               {blockchain.account === "" ||
                                 blockchain.smartContract === null ? (
@@ -575,14 +515,8 @@ function Index() {
                                   {blockchain.errorMsg !== "" ? (
                                     <>
                                       <s.SpacerSmall />
-                                      <s.TextDescription
-                                        style={{
-                                          textAlign: "center",
-                                          color: "var(--primary-text)",
-                                        }}
-                                      >
-                                        {blockchain.errorMsg}
-                                      </s.TextDescription>
+                                      <s.SpacerSmall />
+                                      <s.SpacerSmall />
                                     </>
                                   ) : null}
                                 </s.Container>
@@ -596,6 +530,9 @@ function Index() {
                                   >
                                     {feedback}
                                   </s.TextDescription>
+                                  <s.SpacerMedium />
+                                  <s.SpacerMedium />
+                                  <s.SpacerMedium />
                                   <s.SpacerMedium />
                                   {/* <s.Container ai={"center"} jc={"center"} fd={"row"}>
                                     <StyledRoundButton
