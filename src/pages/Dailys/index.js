@@ -6,6 +6,8 @@ import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
+import Lightbox from 'react-image-lightbox';
+import { BiFullscreen } from "react-icons/bi";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -138,7 +140,10 @@ function Index() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
-
+  
+  const [isOpenLightbox, setIsOpenLightbox] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
+  
   const [feedback, setFeedback] = useState(``);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
@@ -267,6 +272,12 @@ function Index() {
           <a href="/storefront"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
         </BottomRightCornerContainer>
       }
+      { isOpenLightbox && (
+        <Lightbox
+            mainSrc={lightboxImage}
+            onCloseRequest={() => { setIsOpenLightbox(false); setLightboxImage(null); }}
+        />
+      )}
       <s.Container
         flex={1}
         ai={"center"}
@@ -281,13 +292,13 @@ function Index() {
                 <div>
                     <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
                       <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
-                      { !blockchain.account && 
+                        { !blockchain.account && 
                             <CircularContainerImg 
-                                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
-                                src={'/config/images/circle.png'}
-                                onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
+                              style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                              src={'/config/images/circle.png'}
+                              onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
                             />
-                      }
+                        }
                       </CircularContainer>
                       <SunContainer 
                         style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
@@ -300,7 +311,7 @@ function Index() {
                           style={{
                             backgroundColor: 'rgba(255,255,255,0.4)',
                             backgroundBlendMode: 'lighten',
-                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            backgroundImage: data && data.auctionURI ? `url(https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
@@ -333,7 +344,7 @@ function Index() {
                               <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.SYMBOL} costs {data.cost}{" "}
+                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle>
                               <s.SpacerXSmall />
@@ -387,7 +398,6 @@ function Index() {
                                   </s.TextDescription>
                                   <s.SpacerMedium />
                                   <s.SpacerMedium />
-                                  <s.SpacerSmall />
                                   <s.Container ai={"center"} jc={"center"} fd={"row"}>
                                     <StyledButton
                                       disabled={claimingNft ? 1 : 0}
@@ -402,6 +412,9 @@ function Index() {
                                   </s.Container>
                                 </>
                               )}
+                              <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                                <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.auctionURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
+                              </s.Container>
                             </>
                           )}
                         </s.Container>
@@ -431,7 +444,7 @@ function Index() {
                           style={{
                             backgroundColor: 'rgba(255,255,255,0.4)',
                             backgroundBlendMode: 'lighten',
-                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            backgroundImage: data && data.stagingURI ? `url(https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
@@ -582,7 +595,9 @@ function Index() {
                               )}
                             </>
                           )}
-                          <s.SpacerMedium />
+                          <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                            <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.stagingURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
+                          </s.Container>
                         </s.Container>
                       </SunContainer>
                     </ResponsiveWrapper>

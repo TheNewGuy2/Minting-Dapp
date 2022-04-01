@@ -20,6 +20,8 @@ const initialState = {
           ...state,
           loading: false,
           totalSupply: action.payload.totalSupply,
+          stagingURI: action.payload.stagingURI,
+          auctionURI: action.payload.auctionURI,
           // cost: action.payload.cost,
           error: false,
           errorMsg: "",

@@ -66,16 +66,12 @@ export const connect = () => {
             CONFIG.CONTRACT_ADDRESS
           );
           const isOwnSmartContract = await SmartContractObj.methods.walletOfOwner(accounts[0]).call();
-          const isStagingUri = await SmartContractObj.methods.stagingURI().call();
-          const isAuctionUri = await SmartContractObj.methods.auctionURI().call();
           dispatch(
             connectSuccess({
               account: accounts[0],
               smartContract: SmartContractObj,
               web3: web3,
-              isOwnSmartContract: isOwnSmartContract,
-              stagingURI: isStagingUri,
-              auctionURI: isAuctionUri,
+              isOwnSmartContract: isOwnSmartContract
             })
           );
           // Add listeners start
