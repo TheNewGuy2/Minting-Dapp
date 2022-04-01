@@ -8,7 +8,7 @@
     },
     "NFT_NAME": "DTV9",
     "SYMBOL": "DTV9",
-    "MAX_SUPPLY": 365,
+    "MAX_SUPPLY": 3650,
     "WEI_COST":  14200000000000000000,
     "DISPLAY_COST": 14.2000,
     "GAS_LIMIT": 2850000,

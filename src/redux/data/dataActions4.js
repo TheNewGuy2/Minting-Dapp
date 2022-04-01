@@ -29,6 +29,8 @@ export const fetchData = () => {
         .getState()
         .blockchain4.smartContract.methods.totalSupply()
         .call();
+      let isStagingUri = await store.getState().blockchain4.smartContract.methods.stagingURI().call();
+      let isAuctionUri = await store.getState().blockchain4.smartContract.methods.auctionURI().call();
       // let cost = await store
       //   .getState()
       //   .blockchain.smartContract.methods.cost()
@@ -37,6 +39,8 @@ export const fetchData = () => {
       dispatch(
         fetchDataSuccess({
           totalSupply,
+          stagingURI: isStagingUri,
+          auctionURI: isAuctionUri
           // cost,
         })
       );

@@ -6,6 +6,8 @@ import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
+import Lightbox from 'react-image-lightbox';
+import { BiFullscreen } from "react-icons/bi";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -138,8 +140,11 @@ function Index() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileSm, setIsMobileSm] = useState(false);
-
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  
+  const [isOpenLightbox, setIsOpenLightbox] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
+  
+  const [feedback, setFeedback] = useState(``);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -267,6 +272,12 @@ function Index() {
           <a href="/storefront"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
         </BottomRightCornerContainer>
       }
+      { isOpenLightbox && (
+        <Lightbox
+            mainSrc={lightboxImage}
+            onCloseRequest={() => { setIsOpenLightbox(false); setLightboxImage(null); }}
+        />
+      )}
       <s.Container
         flex={1}
         ai={"center"}
@@ -281,13 +292,13 @@ function Index() {
                 <div>
                     <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
                       <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
-                      { !blockchain.account && 
+                        { !blockchain.account && 
                             <CircularContainerImg 
-                                style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
-                                src={'/config/images/circle.png'}
-                                onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
+                              style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
+                              src={'/config/images/circle.png'}
+                              onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
                             />
-                      }
+                        }
                       </CircularContainer>
                       <SunContainer 
                         style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
@@ -300,7 +311,7 @@ function Index() {
                           style={{
                             backgroundColor: 'rgba(255,255,255,0.4)',
                             backgroundBlendMode: 'lighten',
-                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            backgroundImage: data && data.auctionURI ? `url(https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
@@ -310,26 +321,6 @@ function Index() {
                             ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
                           }}
                         >
-                          <s.TextTitle
-                            style={{
-                              textAlign: "center",
-                              fontSize: isMobile ? 40 : 50,
-                              fontWeight: "bold",
-                              color: "var(--accent-text)",
-                            }}
-                          >
-                            {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-                          </s.TextTitle>
-                          <s.TextDescription
-                            style={{
-                              textAlign: "center",
-                              color: "var(--primary-text)",
-                            }}
-                          >
-                            <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                              {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                            </StyledLink>
-                          </s.TextDescription>
                           <s.SpacerSmall />
                           {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                             <>
@@ -357,12 +348,14 @@ function Index() {
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle>
                               <s.SpacerXSmall />
-                              <s.TextDescription
-                                style={{ textAlign: "center", color: "var(--primary-text)" }}
-                              >
-                                Excluding gas fees.
-                              </s.TextDescription>
                               <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerSmall />
+                              <s.SpacerMedium />
                               {blockchain.account === "" ||
                                 blockchain.smartContract === null ? (
                                 <s.Container ai={"center"} jc={"center"}>
@@ -388,14 +381,8 @@ function Index() {
                                   {blockchain.errorMsg !== "" ? (
                                     <>
                                       <s.SpacerSmall />
-                                      <s.TextDescription
-                                        style={{
-                                          textAlign: "center",
-                                          color: "var(--primary-text)",
-                                        }}
-                                      >
-                                        {blockchain.errorMsg}
-                                      </s.TextDescription>
+                                      <s.SpacerSmall />
+                                      <s.SpacerSmall />
                                     </>
                                   ) : null}
                                 </s.Container>
@@ -410,38 +397,7 @@ function Index() {
                                     {feedback}
                                   </s.TextDescription>
                                   <s.SpacerMedium />
-                                  <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                                    <StyledRoundButton
-                                      style={{ lineHeight: 0.4 }}
-                                      disabled={claimingNft ? 1 : 0}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        decrementMintAmount();
-                                      }}
-                                    >
-                                      -
-                                    </StyledRoundButton>
-                                    <s.SpacerMedium />
-                                    <s.TextDescription
-                                      style={{
-                                        textAlign: "center",
-                                        color: "var(--accent-text)",
-                                      }}
-                                    >
-                                      {mintAmount}
-                                    </s.TextDescription>
-                                    <s.SpacerMedium />
-                                    <StyledRoundButton
-                                      disabled={claimingNft ? 1 : 0}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        incrementMintAmount();
-                                      }}
-                                    >
-                                      +
-                                    </StyledRoundButton>
-                                  </s.Container>
-                                  <s.SpacerSmall />
+                                  <s.SpacerMedium />
                                   <s.Container ai={"center"} jc={"center"} fd={"row"}>
                                     <StyledButton
                                       disabled={claimingNft ? 1 : 0}
@@ -456,9 +412,11 @@ function Index() {
                                   </s.Container>
                                 </>
                               )}
+                              <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                                <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.auctionURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
+                              </s.Container>
                             </>
                           )}
-                          <s.SpacerMedium />
                         </s.Container>
                       </SunContainer>
                     </ResponsiveWrapper>
@@ -486,7 +444,7 @@ function Index() {
                           style={{
                             backgroundColor: 'rgba(255,255,255,0.4)',
                             backgroundBlendMode: 'lighten',
-                            backgroundImage: blockchain && blockchain.account ? `url(https://gateway.pinata.cloud/${(blockchain.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
+                            backgroundImage: data && data.stagingURI ? `url(https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
@@ -544,11 +502,6 @@ function Index() {
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle>
                               <s.SpacerXSmall />
-                              <s.TextDescription
-                                style={{ textAlign: "center", color: "var(--primary-text)" }}
-                              >
-                                Excluding gas fees.
-                              </s.TextDescription>
                               <s.SpacerSmall />
                               {blockchain.account === "" ||
                                 blockchain.smartContract === null ? (
@@ -575,14 +528,8 @@ function Index() {
                                   {blockchain.errorMsg !== "" ? (
                                     <>
                                       <s.SpacerSmall />
-                                      <s.TextDescription
-                                        style={{
-                                          textAlign: "center",
-                                          color: "var(--primary-text)",
-                                        }}
-                                      >
-                                        {blockchain.errorMsg}
-                                      </s.TextDescription>
+                                      <s.SpacerSmall />
+                                      <s.SpacerSmall />
                                     </>
                                   ) : null}
                                 </s.Container>
@@ -596,6 +543,9 @@ function Index() {
                                   >
                                     {feedback}
                                   </s.TextDescription>
+                                  <s.SpacerMedium />
+                                  <s.SpacerMedium />
+                                  <s.SpacerMedium />
                                   <s.SpacerMedium />
                                   {/* <s.Container ai={"center"} jc={"center"} fd={"row"}>
                                     <StyledRoundButton
@@ -645,7 +595,9 @@ function Index() {
                               )}
                             </>
                           )}
-                          <s.SpacerMedium />
+                          <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                            <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.stagingURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
+                          </s.Container>
                         </s.Container>
                       </SunContainer>
                     </ResponsiveWrapper>
