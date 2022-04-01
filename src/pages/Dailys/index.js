@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import Lightbox from 'react-image-lightbox';
 import { BiFullscreen } from "react-icons/bi";
+import Countdown from "react-countdown";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -166,7 +167,7 @@ function Index() {
   });
 
   const claimNFTs = () => {
-    let cost = CONFIG.WEI_COST;
+    let cost = data.cost;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
     let totalGasLimit = String(gasLimit * mintAmount);
@@ -229,6 +230,31 @@ function Index() {
     const config = await configResponse.json();
     SET_CONFIG(config);
   };
+  
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a complete state
+      return (
+        <s.TextDescription
+          style={{
+            textAlign: "center",
+            color: "var(--accent-text)",
+          }}
+        >
+          Auction Closed
+        </s.TextDescription>
+      );
+    } else {
+      // Render a countdown
+      return (
+        <s.TextTitle
+          style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
+        >
+          {hours}:{minutes}:{seconds}
+        </s.TextTitle>
+      );
+    }
+  }
 
   useEffect(() => {
     getConfig();
@@ -341,16 +367,19 @@ function Index() {
                             </>
                           ) : (
                             <>
-                              <s.TextTitle
+                              { data && data.cost ? <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                                1 {CONFIG.SYMBOL} costs {data.cost/1000000000000000000}{" "}
                                 {CONFIG.NETWORK.SYMBOL}.
-                              </s.TextTitle>
+                              </s.TextTitle> : null }
                               <s.SpacerXSmall />
+                              {/* <s.SpacerSmall />
                               <s.SpacerSmall />
-                              <s.SpacerSmall />
-                              <s.SpacerSmall />
+                              <s.SpacerSmall /> */}
+                              <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                                {data && data.remainingTime ? <Countdown date={Date.now() + parseInt(data.remainingTime)} renderer={renderer} /> : null }
+                              </s.Container>
                               <s.SpacerSmall />
                               <s.SpacerSmall />
                               <s.SpacerSmall />
@@ -495,12 +524,12 @@ function Index() {
                             </>
                           ) : (
                             <>
-                              <s.TextTitle
+                             {data && data.cost ? <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                                1 {CONFIG.SYMBOL} costs {data.cost/1000000000000000000}{" "}
                                 {CONFIG.NETWORK.SYMBOL}.
-                              </s.TextTitle>
+                              </s.TextTitle> : null }
                               <s.SpacerXSmall />
                               <s.SpacerSmall />
                               {blockchain.account === "" ||
