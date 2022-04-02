@@ -333,15 +333,16 @@ function Index() {
                           ai={"center"}
                           className="outer_body"
                           style={{
-                            backgroundColor: 'rgba(255,255,255,0.4)',
-                            backgroundBlendMode: 'lighten',
+                            backgroundColor: data && data.auctionURI ? 'rgba(255,255,255,0.4)' : 'transparent',
+                            backgroundBlendMode: data && data.auctionURI ? 'lighten': 'none',
                             backgroundImage: data && data.auctionURI ? `url(https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
                             boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
                             position: 'relative',
-                            padding: '30px',            
+                            padding: '30px',
+                            ...!isMobile && { minHeight: '375px' }, 
                             ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
                           }}
                         >
@@ -439,9 +440,9 @@ function Index() {
                                   </s.Container>
                                 </>
                               )}
-                              <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
-                                <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.auctionURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
-                              </s.Container>
+                              { data && data.auctionURI && <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                                <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')}`) }} />
+                              </s.Container>}
                             </>
                           )}
                         </s.Container>
@@ -463,21 +464,21 @@ function Index() {
                         style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
                       >
                         <s.Container
-                        
                           flex={1}
                           jc={"center"}
                           ai={"center"}
                           className="outer_body"
                           style={{
-                            backgroundColor: 'rgba(255,255,255,0.4)',
-                            backgroundBlendMode: 'lighten',
+                            backgroundColor: data && data.stagingURI ? 'rgba(255,255,255,0.4)' : 'transparent',
+                            backgroundBlendMode: data && data.stagingURI ? 'lighten': 'none',
                             backgroundImage: data && data.stagingURI ? `url(https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')})` : '',
                             padding: 10,
                             borderRadius: '50%',
                             border: "2px dashed var(--secondary)",
                             boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
                             position: 'relative',
-                            padding: '30px',       
+                            padding: '30px',
+                            ...!isMobile && { minHeight: '375px' },
                             ...isMobile && { width: '280px', height: '300px', margin:'0px auto' }
                           }}
                         >
@@ -622,9 +623,9 @@ function Index() {
                               )}
                             </>
                           )}
-                          <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
-                            <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { if(data && data.stagingURI) { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')}`) } }} />
-                          </s.Container>
+                          { data && data.stagingURI && <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                            <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.stagingURI).replace('ipfs://', 'ipfs/').replace('"','')}`) }} />
+                          </s.Container>}
                         </s.Container>
                       </SunContainer>
                     </ResponsiveWrapper>
