@@ -1,5 +1,7 @@
 // log
 import store from "../store";
+import Web3EthContract from "web3-eth-contract";
+import { configurations } from "../blockchain/blockchainActions4";
 
 const fetchDataRequest = () => {
   return {
@@ -25,11 +27,16 @@ export const fetchData = () => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-      let totalSupply = await store.getState().blockchain4.smartContract.methods.totalSupply().call();
-      let isStagingUri = await store.getState().blockchain4.smartContract.methods.stagingURI().call();
-      let isAuctionUri = await store.getState().blockchain4.smartContract.methods.auctionURI().call();
-      let cost = await store.getState().blockchain4.smartContract.methods.cost().call();
-      let remainingTime = await store.getState().blockchain4.smartContract.methods.remainingTime(1).call();
+      let { abi, CONFIG } = await configurations();
+      const SmartContractObj = new Web3EthContract(
+        abi,
+        CONFIG.CONTRACT_ADDRESS
+      );
+      let totalSupply = await SmartContractObj.methods.totalSupply().call();
+      let isStagingUri = await SmartContractObj.methods.stagingURI().call();
+      let isAuctionUri = await SmartContractObj.methods.auctionURI().call();
+      let cost = await SmartContractObj.methods.cost().call();
+      let remainingTime = await SmartContractObj.methods.remainingTime(1).call();
       // let cost = await store
       //   .getState()
       //   .blockchain.smartContract.methods.cost()
