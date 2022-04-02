@@ -31,23 +31,45 @@ const updateAccountRequest = (payload) => {
   };
 };
 
+export const configurations = async () => {
+  const abiResponse = await fetch("/config/abi4.json", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const abi = await abiResponse.json();
+  const configResponse = await fetch("/config/config4.json", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const CONFIG = await configResponse.json();
+  return {
+    abi,
+    CONFIG
+  }
+} 
+
 export const connect = () => {
   return async (dispatch) => {
     dispatch(connectRequest());
-    const abiResponse = await fetch("/config/abi4.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const abi = await abiResponse.json();
-    const configResponse = await fetch("/config/config4.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const CONFIG = await configResponse.json();
+    // const abiResponse = await fetch("/config/abi4.json", {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    // });
+    // const abi = await abiResponse.json();
+    // const configResponse = await fetch("/config/config4.json", {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    // });
+    // const CONFIG = await configResponse.json();
+    let { abi, CONFIG } = await configurations();
     const { ethereum } = window;
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {

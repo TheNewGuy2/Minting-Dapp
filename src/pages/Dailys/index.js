@@ -215,9 +215,7 @@ function Index() {
   };
 
   const getData = () => {
-    if (blockchain.account !== "" && blockchain.smartContract !== null) {
-      dispatch(fetchData(blockchain.account));
-    }
+    dispatch(fetchData());
   };
 
   const getConfig = async () => {
