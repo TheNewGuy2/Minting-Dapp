@@ -1,19 +1,19 @@
 {
-    "CONTRACT_ADDRESS": "0x131d91E6ACeE7564749a765e61dc9418022231Da",
-    "SCAN_LINK": "https://mumbai.polygonscan.com/address/0x131d91E6ACeE7564749a765e61dc9418022231Da",
+    "CONTRACT_ADDRESS": "0x91A3575F0499dB7D09f9b326adF0F0c6c075801c",
+    "SCAN_LINK": "https://mumbai.polygonscan.com/address/0x91A3575F0499dB7D09f9b326adF0F0c6c075801c",
     "NETWORK": {
       "NAME": "Polygon mumbai",
       "SYMBOL": "Matic",
       "ID": 80001
     },
-    "NFT_NAME": "DTV9",
-    "SYMBOL": "DTV9",
-    "MAX_SUPPLY": 3650,
+    "NFT_NAME": "DTV12",
+    "SYMBOL": "DTV12",
+    "MAX_SUPPLY": 2555,
     "WEI_COST":  14200000000000000000,
     "DISPLAY_COST": 14.2000,
     "GAS_LIMIT": 2850000,
     "MARKETPLACE": "Opeansea",
-    "MARKETPLACE_LINK": "https://opensea.io/collection/DTV9",
+    "MARKETPLACE_LINK": "https://opensea.io/collection/DTV12",
     "SHOW_BACKGROUND": true
   }
   
