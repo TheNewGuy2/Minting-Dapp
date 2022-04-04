@@ -1,10 +1,10 @@
 {
     "CONTRACT_ADDRESS": "0xA44a6EE48738971160C0FDDb48ba244e056185A2",
-    "SCAN_LINK": "https://mumbai.polygonscan.com/address/0xA44a6EE48738971160C0FDDb48ba244e056185A2",
+    "SCAN_LINK": "https://polygonscan.com/address/0xA44a6EE48738971160C0FDDb48ba244e056185A2",
     "NETWORK": {
-      "NAME": "Polygon mumbai",
+      "NAME": "Polygon",
       "SYMBOL": "Matic",
-      "ID": 80001
+      "ID": 137
     },
     "NFT_NAME": "Dailys",
     "SYMBOL": "0404",
