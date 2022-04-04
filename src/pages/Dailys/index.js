@@ -491,7 +491,7 @@ function Index() {
                             }}
                           >
                             {/* {data.totalSupply} / {CONFIG.MAX_SUPPLY} */}
-                            Upcoming
+                            Coming Soon
                           </s.TextTitle>
                           <s.TextDescription
                             style={{
@@ -499,6 +499,9 @@ function Index() {
                               color: "var(--primary-text)",
                             }}
                           >
+                            <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
+                                {data && data.remainingTime ? <Countdown date={Date.now() + parseInt(data.remainingTime)} renderer={renderer} /> : null }
+                              </s.Container>
                             <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
                               {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
                             </StyledLink>
@@ -526,8 +529,6 @@ function Index() {
                              {data && data.cost ? <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.SYMBOL} costs {data.cost/1000000000000000000}{" "}
-                                {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle> : null }
                               <s.SpacerXSmall />
                               <s.SpacerSmall />
