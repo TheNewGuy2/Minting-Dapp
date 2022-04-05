@@ -283,6 +283,19 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_auctionDuration",
+				"type": "uint256"
+			}
+		],
+		"name": "setauctionDuration",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_newauctionURI",
 				"type": "string"
