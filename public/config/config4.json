@@ -1,13 +1,13 @@
 {
-    "CONTRACT_ADDRESS": "0xA44a6EE48738971160C0FDDb48ba244e056185A2",
-    "SCAN_LINK": "https://polygonscan.com/address/0xA44a6EE48738971160C0FDDb48ba244e056185A2",
+    "CONTRACT_ADDRESS": "0x2769A971cB326eEcc604139723B20a7ed436b7B6",
+    "SCAN_LINK": "https://polygonscan.com/address/0x2769A971cB326eEcc604139723B20a7ed436b7B6",
     "NETWORK": {
       "NAME": "Polygon",
       "SYMBOL": "Matic",
       "ID": 137
     },
-    "NFT_NAME": "Dailys",
-    "SYMBOL": "0404",
+    "NFT_NAME": "DAILYS",
+    "SYMBOL": "44_22",
     "MAX_SUPPLY": 2555,
     "WEI_COST":  14200000000000000000,
     "DISPLAY_COST": 14.2000,
