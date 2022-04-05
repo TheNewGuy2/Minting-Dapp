@@ -1741,7 +1741,7 @@ contract Dailys is ERC721Enumerable, VRFConsumerBase, KeeperCompatibleInterface,
   string public auctionURI;
   string public auctionName;
   string public stagingName;
-  uint startingTime;
+  uint startingTime = block.timestamp;
   uint endTime;
   uint randNonce = 0;  
   string public baseExtension = ".json";
@@ -1785,14 +1785,14 @@ contract Dailys is ERC721Enumerable, VRFConsumerBase, KeeperCompatibleInterface,
     uint updateInterval
   ) 
           VRFConsumerBase(
-            0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, // VRF Coordinator
-            0x326C977E6efc84E512bB9C30f76E30c160eD06FB  // LINK Token
+            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator
+            0xb0897686c545045aFc77CF20eC7A532E3120E0F1  // LINK Token
         )
 
   ERC721(_name, _symbol) {
     setauctionURI(_initauctionURI, _initauctionName);
     setstagingURI(_initstagingURI, _initstagingName);
-    keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
+    keyHash = 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da;
     fee = 0.0001 * 10 ** 18; // 0.1 LINK (Varies by network)
     interval = updateInterval;
     lastTimeStamp = block.timestamp;
@@ -1959,6 +1959,9 @@ contract Dailys is ERC721Enumerable, VRFConsumerBase, KeeperCompatibleInterface,
   //only owner
   function setinterval(uint256 _interval) public onlyOwner {
       interval = _interval;
+  }
+  function setauctionDuration(uint256 _auctionDuration) public onlyOwner {
+      auctionDuration = _auctionDuration;
   }
   function reveal() public onlyOwner {
       revealed = true;
