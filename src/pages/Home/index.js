@@ -141,10 +141,10 @@ function Index() {
                                         <SunContainer 
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate('/masterkey');
+                                                navigate('/dailys');
                                             }}
                                         >
-                                            MasterKey
+                                            DAILYS
                                         </SunContainer>
                                     </SunWrapper>
                                 </div>
@@ -153,10 +153,10 @@ function Index() {
                                         <SunContainer 
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                navigate('/dailys');
+                                                navigate('/masterkey');
                                             }}
                                         >
-                                            DAILYS
+                                            MasterKey
                                         </SunContainer>
                                     </SunWrapper>
                                 </div>
