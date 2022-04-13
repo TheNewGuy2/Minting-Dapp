@@ -22,6 +22,8 @@ const initialState = {
           totalSupply: action.payload.totalSupply,
           stagingURI: action.payload.stagingURI,
           auctionURI: action.payload.auctionURI,
+          stagingName: action.payload.stagingName,
+          auctionName: action.payload.auctionName,
           cost: action.payload.cost,
           remainingTime: (action.payload.remainingTime * 1000),
           // cost: action.payload.cost,
