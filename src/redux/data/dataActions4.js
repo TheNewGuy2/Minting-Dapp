@@ -35,6 +35,8 @@ export const fetchData = () => {
       let totalSupply = await SmartContractObj.methods.totalSupply().call();
       let isStagingUri = await SmartContractObj.methods.stagingURI().call();
       let isAuctionUri = await SmartContractObj.methods.auctionURI().call();
+      let isStagingName = await SmartContractObj.methods.stagingName().call();
+      let isAuctionName = await SmartContractObj.methods.auctionName().call();
       let cost = await SmartContractObj.methods.cost().call();
       let remainingTime = await SmartContractObj.methods.remainingTime(1).call();
       // let cost = await store
@@ -47,6 +49,8 @@ export const fetchData = () => {
           totalSupply,
           stagingURI: isStagingUri,
           auctionURI: isAuctionUri,
+          stagingName: isStagingName,
+          auctionName: isAuctionName,
           cost: cost,
           remainingTime: remainingTime
           // cost,

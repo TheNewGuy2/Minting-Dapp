@@ -369,7 +369,7 @@ function Index() {
                               { data && data.cost ? <s.TextTitle
                                 style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
                               >
-                                1 {CONFIG.NFT_NAME} costs {data.cost/1000000000000000000}{" "}
+                                1 {data.auctionName} costs {data.cost/1000000000000000000}{" "}
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle> : null }
                               <s.SpacerXSmall />
