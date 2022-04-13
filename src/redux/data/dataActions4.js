@@ -32,6 +32,7 @@ export const fetchData = () => {
         abi,
         CONFIG.CONTRACT_ADDRESS
       );
+      let isPaused = await SmartContractObj.methods.paused().call();
       let totalSupply = await SmartContractObj.methods.totalSupply().call();
       let isStagingUri = await SmartContractObj.methods.stagingURI().call();
       let isAuctionUri = await SmartContractObj.methods.auctionURI().call();
@@ -47,6 +48,7 @@ export const fetchData = () => {
       dispatch(
         fetchDataSuccess({
           totalSupply,
+          paused: isPaused,
           stagingURI: isStagingUri,
           auctionURI: isAuctionUri,
           stagingName: isStagingName,

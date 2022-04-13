@@ -24,6 +24,7 @@ const initialState = {
           auctionURI: action.payload.auctionURI,
           stagingName: action.payload.stagingName,
           auctionName: action.payload.auctionName,
+          paused: action.payload.paused,
           cost: action.payload.cost,
           remainingTime: (action.payload.remainingTime * 1000),
           // cost: action.payload.cost,
