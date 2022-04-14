@@ -427,19 +427,31 @@ function Index() {
                                   <s.SpacerMedium />
                                   <s.SpacerMedium />
                                   <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                                    <StyledButton
-                                      disabled={claimingNft ? 1 : 0}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        claimNFTs();
-                                        getData();
-                                      }}
-                                    >
-                                      {claimingNft ? "BUSY" : "BUY"}
-                                    </StyledButton>
+                                    { data && !data.paused && <StyledButton
+                                        disabled={claimingNft ? 1 : 0}
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          claimNFTs();
+                                          getData();
+                                        }}
+                                      >
+                                        {claimingNft ? "BUSY" : "BUY"}
+                                      </StyledButton> 
+                                    }
                                   </s.Container>
                                 </>
                               )}
+                              { data && data.paused && <s.TextTitle
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: isMobile ? 20 : 25,
+                                    fontWeight: "bold",
+                                    color: "var(--accent-text)",
+                                  }}
+                                >
+                                  Contract Paused
+                                </s.TextTitle>
+                              }
                               { data && data.auctionURI && <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
                                 <BiFullscreen style={{ cursor: 'pointer' }} onClick={() => { setIsOpenLightbox(true); setLightboxImage(`https://gateway.pinata.cloud/${(data.auctionURI).replace('ipfs://', 'ipfs/').replace('"','')}`) }} />
                               </s.Container>}
