@@ -307,8 +307,7 @@ function Index() {
         ai={"center"}
         style={{ padding: 100, ...isMobile && { padding: '100px 0px' } }}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
-          style={{ cursor: 'pointer' }}
+        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ cursor: 'pointer', marginBottom:'30px'}}
           onClick={(e) => navigate('/home', '_blank') } />
           {/* <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test> */}
             <div style={{ width: isMobile ? '300px' : '500px' }}>
