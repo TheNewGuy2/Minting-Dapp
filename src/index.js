@@ -4,6 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import "react-chat-elements/dist/main.css"
 import "./styles/reset.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
