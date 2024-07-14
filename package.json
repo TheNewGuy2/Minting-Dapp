@@ -32,7 +32,7 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env BROWSER=chrome react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build"
+    "build": "react-scripts --openssl-legacy-provider build"
   },
   "browserslist": {
     "production": [
