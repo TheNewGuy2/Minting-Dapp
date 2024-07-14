@@ -31,7 +31,7 @@
   "author": "Daniel Eugene Botha (HashLips)",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env BROWSER=chrome react-scripts start",
+    "start": "cross-env BROWSER=chrome react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build"
   },
   "browserslist": {
