@@ -167,3 +167,15 @@ div {
   user-select: none;
   -o-user-select: none;
 }
+
+.rce-mlist {
+  overflow-x: hidden;
+}
+
+.rce-mbox-text::after {
+  display: none;
+}
+
+.rce-mbox {
+  background: transparent;
+}
