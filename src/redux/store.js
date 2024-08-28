@@ -9,6 +9,8 @@ import blockchainReducer3 from "./blockchain/blockchainReducer3";
 import dataReducer3 from "./data/dataReducer3";
 import blockchainReducer4 from "./blockchain/blockchainReducer4";
 import dataReducer4 from "./data/dataReducer4";
+import blockchainReducer5 from "./blockchain/blockchainReducer5";
+import dataReducer5 from "./data/dataReducer5";
 
 const rootReducer = combineReducers({
   blockchain: blockchainReducer,
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
   data3: dataReducer3,
   blockchain4: blockchainReducer4,
   data4: dataReducer4,
+  blockchain5: blockchainReducer5,
+  data5: dataReducer5
 });
 
 const middleware = [thunk];

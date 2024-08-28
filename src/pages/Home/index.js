@@ -231,6 +231,18 @@ function Index() {
                                     <SunContainer
                                         onClick={(e) => {
                                             e.preventDefault();
+                                            navigate('/newdailys');
+                                        }}
+                                    >
+                                        New DAILYS
+                                    </SunContainer>
+                                </SunWrapper>
+                            </div>
+                            <div>
+                                <SunWrapper>
+                                    <SunContainer
+                                        onClick={(e) => {
+                                            e.preventDefault();
                                             navigate('/dailys');
                                         }}
                                     >
