@@ -5,6 +5,7 @@ const Release1 = lazy(() => import('./pages/Release1/index'));
 const Release2 = lazy(() => import('./pages/Release2/index'));
 const Release3 = lazy(() => import('./pages/Release3/index'));
 const Dailys = lazy(() => import('./pages/Dailys/index'));
+const NewDailys = lazy(() => import('./pages/NewDailys/index'));
 const MasterKey = lazy(() => import('./pages/MasterKey/index'));
 const StoreFront = lazy(() => import('./pages/StoreFront/index'));
 
@@ -46,6 +47,12 @@ function App() {
             path='/dailys'
             element={
               <Dailys />
+            }
+          />
+          <Route
+            path='/newdailys'
+            element={
+              <NewDailys />
             }
           />
           <Route
