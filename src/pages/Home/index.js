@@ -223,7 +223,7 @@ function Index() {
                 ai={"center"}
                 style={{ padding: '0px 200px', height: '100%', ...isMobile && { padding: 0 } }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'center', width: '100%', height: '100%', alignItems: 'center' }}>
                     <div style={{ width: '250px', height: '20%' }}>
                         <Slider {...settings}>
                             <div>
