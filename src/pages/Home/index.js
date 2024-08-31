@@ -234,7 +234,8 @@ function Index() {
                                             navigate('/newdailys');
                                         }}
                                     >
-                                        SunSet Machine
+                                        SunSet
+                                        Machine
                                     </SunContainer>
                                 </SunWrapper>
                             </div>
