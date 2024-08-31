@@ -234,7 +234,7 @@ function Index() {
                                             navigate('/newdailys');
                                         }}
                                     >
-                                        New DAILYS
+                                        SunSet Machine
                                     </SunContainer>
                                 </SunWrapper>
                             </div>
