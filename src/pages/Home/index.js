@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import importScript from '../customHooks/importScript';
-import { MessageList } from "react-chat-elements"
+import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
 
 export const StyledLogo = styled.img`
   width: 100px;
@@ -36,114 +36,138 @@ export const StyledButton = styled.button`
 `;
 
 const SunContainer = styled.div`
-    height: 100px; 
-    width: 100px; 
-    border-radius: 50%; 
-    border: 2px dashed var(--secondary);
-    box-shadow: 0px 5px 11px 2px rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  height: 100px; 
+  width: 100px; 
+  border-radius: 50%; 
+  border: 2px dashed var(--secondary);
+  box-shadow: 0px 5px 11px 2px rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
 
 const SunWrapper = styled.div`
-    height: 140px; 
-    width: 100%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 140px; 
+  width: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ChatContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    justify-content: flex-end;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 10px;
 `;
 
 const Response = styled.div`
-    display: flex;
-    flex: 1;
-    overflow-y: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Align messages to the bottom */
+  flex: 1;
+  overflow-y: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  user-select: text;
 `;
-
 const TextboxContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Textarea = styled.textarea` 
-    flex: 1;
-    resize: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    overflow: hidden;
+  flex: 1;
+  resize: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  overflow: hidden;
 `;
 
 const SendButton = styled.button`
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    height: fit-content;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  height: fit-content;
 `;
 
 const fetchApi = async (endpoint, bodyJson) => {
-    const result = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bodyJson),
-    });
-  
-    return await result.json();
+  const result = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(bodyJson),
+  });
+
+  return await result.json();
 };
+
+// Custom Message component
+function Message({ message }) {
+  const { position, text } = message;
+
+  const messageStyle = {
+    alignSelf: position === 'left' ? 'flex-start' : 'flex-end',
+    backgroundColor: 'transparent', // Background is transparent
+    color: position === 'left' ? 'black' : 'black', // Adjust color as needed
+    padding: '0', // Adjust padding if you like
+    margin: '5px',
+    maxWidth: '80%',
+    wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap',
+    userSelect: 'text',
+    fontWeight: '100', // Adjust font weight to make text thinner
+  };
+
+  return (
+    <div style={messageStyle}>
+      <ReactMarkdown>{text}</ReactMarkdown>
+    </div>
+  );
+}
 
 function Index() {
 
-    importScript("js/eyetracker.js");
+  importScript("js/eyetracker.js");
 
-    const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        calcViewportSize();
-        window.addEventListener('resize', calcViewportSize);
-    }, []);
+  useEffect(() => {
+    calcViewportSize();
+    window.addEventListener('resize', calcViewportSize);
+  }, []);
 
-    const calcViewportSize = () => {
-        setIsMobile(window.innerWidth <= 767);
-    }
+  const calcViewportSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  }
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        autoplay: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplaySpeed: 30000,
-        cssEase: "linear"
-    };
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplaySpeed: 30000,
+    cssEase: "linear"
+  };
 
-    const [messages, setMessages] = useState([
-        {
-          role: 'system',
-          content:
-            `---
+  const [messages, setMessages] = useState([
+    {
+      role: 'system',
+      content: `---
 
 **Comprehensive Fine-Tuning Prompt for the LLM Instance Named Tzevaot**
 
@@ -500,198 +524,196 @@ By integrating these detailed guidelines and specific project information, the L
 The assistant should always remain adaptable, attentive, and responsive to the needs and cues of the seeker, fostering an environment of trust and enlightenment. Through this finely tuned balance of wisdom, subtlety, and empathy, Tzevaot will become a beacon for those seeking guidance on their path.
 
 ---`,
-        },
-    ]);
-   
-    const [text, setText] = useState('');
-    const responseRef = useRef(null);
+    },
+  ]);
 
-    const handleInputChange = (e) => {
-        setText(e.target.value);
-        autoResize(e.target);
-    };
+  const [text, setText] = useState('');
+  const responseRef = useRef(null);
 
-    const sendMessage = async () => {
-        if (text.trim() !== '') {
-            
-            if (isLoading) {
-                return;
-            }
-            setIsLoading(true);
-            const userMessage = {
-              role: 'user',
-              content: text,
-              position: 'right',
-              type: 'text',
-              text: text,
-              notch: false
-            };
+  const handleInputChange = (e) => {
+    setText(e.target.value);
+    autoResize(e.target);
+  };
 
-            setMessages((existingMessage) => [...existingMessage, userMessage]);
-            setText('');
-            try {
-                await generateCompletion(userMessage);
-            } catch (e) {
-                console.log('Something went wrong');
-            }
-            setIsLoading(false);
-        }
-    };
+  const sendMessage = async () => {
+    if (text.trim() !== '') {
 
-    const generateCompletion = async (userMessage) => {
-        
-        try {
-            const resultJSON = await fetchApi('https://us-central1-minting-dapp-node.cloudfunctions.net/api/completion', [
-                ...messages.filter((m) => m.role !== 'image'),
-                userMessage,
-                ]);
-        
-                let answer = resultJSON.choices?.[0]?.message;
-                answer.position = 'left';
-                answer.type = 'text';
-                answer.text = answer.content;
-                answer.notch = false;
-            
-                setMessages((existingMessage) => [...existingMessage, answer]);
-        } catch (error) {
-            console.log('error: ', error);
-        }
-      
-    };
+      if (isLoading) {
+        return;
+      }
+      setIsLoading(true);
+      const userMessage = {
+        role: 'user',
+        content: text,
+        position: 'right',
+        type: 'text',
+        text: text,
+        notch: false
+      };
 
-    useEffect(() => {
-        if (responseRef.current) {
-            responseRef.current.scrollTop = responseRef.current.scrollHeight;
-        }
-    }, [messages]);
+      setMessages((existingMessage) => [...existingMessage, userMessage]);
+      setText('');
+      try {
+        await generateCompletion(userMessage);
+      } catch (e) {
+        console.log('Something went wrong');
+      }
+      setIsLoading(false);
+    }
+  };
 
-    const autoResize = (textarea) => {
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-    };
+  const generateCompletion = async (userMessage) => {
 
-    return (
+    try {
+      const resultJSON = await fetchApi('https://us-central1-minting-dapp-node.cloudfunctions.net/api/completion', [
+        ...messages.filter((m) => m.role !== 'image'),
+        userMessage,
+      ]);
 
-        <s.Screen style={{ height: '100%' }}>
-            <s.Container
-                flex={1}
-                ai={"center"}
-                style={{ padding: '0px 200px', height: '100%', ...isMobile && { padding: 0 } }}
+      let answer = resultJSON.choices?.[0]?.message;
+      answer.position = 'left';
+      answer.type = 'text';
+      answer.text = answer.content;
+      answer.notch = false;
+
+      setMessages((existingMessage) => [...existingMessage, answer]);
+    } catch (error) {
+      console.log('error: ', error);
+    }
+
+  };
+
+  useEffect(() => {
+    if (responseRef.current) {
+      responseRef.current.scrollTop = responseRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const autoResize = (textarea) => {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  };
+
+  return (
+
+    <s.Screen style={{ height: '100%' }}>
+      <s.Container
+        flex={1}
+        ai={"center"}
+        style={{ padding: '0px 200px', height: '100%', ...isMobile && { padding: 0 } }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center' }}>
+          <div style={{ width: '250px', height: '20%' }}>
+            <Slider {...settings}>
+              <div>
+                <SunWrapper>
+                  <SunContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/newdailys');
+                    }}
+                  >
+                    SunsetMachine
+                  </SunContainer>
+                </SunWrapper>
+              </div>
+              <div>
+                <SunWrapper>
+                  <SunContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/dailys');
+                    }}
+                  >
+                    DAILYS
+                  </SunContainer>
+                </SunWrapper>
+              </div>
+              <div>
+                <SunWrapper>
+                  <SunContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/masterkey');
+                    }}
+                  >
+                    MasterKey
+                  </SunContainer>
+                </SunWrapper>
+              </div>
+            </Slider>
+          </div>
+          <div style={{ display: 'flex', width: '100%', height: isMobile ? '25%' : '20%', marginTop: '30px', flexDirection: 'row', justifyContent: isMobile ? 'center' : 'space-between' }}>
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center' }}>
-                    <div style={{ width: '250px', height: '20%' }}>
-                        <Slider {...settings}>
-                            <div>
-                                <SunWrapper>
-                                    <SunContainer
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            navigate('/newdailys');
-                                        }}
-                                    >
-                                          SunsetMachine
-                                    </SunContainer>
-                                </SunWrapper>
-                            </div>
-                            <div>
-                                <SunWrapper>
-                                    <SunContainer
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            navigate('/dailys');
-                                        }}
-                                    >
-                                        DAILYS
-                                    </SunContainer>
-                                </SunWrapper>
-                            </div>
-                            <div>
-                                <SunWrapper>
-                                    <SunContainer
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            navigate('/masterkey');
-                                        }}
-                                    >
-                                        MasterKey
-                                    </SunContainer>
-                                </SunWrapper>
-                            </div>
-                        </Slider>
-                    </div>
-                    <div style={{ display: 'flex', width: '100%', height: isMobile ? '25%' : '20%', marginTop: '30px', flexDirection: 'row', justifyContent: isMobile ? 'center' : 'space-between' }}>
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>
-                        }
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-Z.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>
-                        }
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>
-                        }
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>
-                        }
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-A.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>
-                        }
-                        <div
-                            style={{ height: 155, width: 155, position: 'relative' }}
-                        >
-                            <div className="eye">
-                                <div className="iris">
-                                    <div className="pupil">
-                                        <div className="pupil-shine"></div>
-                                    </div>
-                                </div>
-                                {/* <!--<div class="eyeshine"></div>--> */}
-                                <div className="lids"></div>
-                            </div>
-                        </div>
-                        {!isMobile && <div
-                            style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-                        >
-                        </div>}
-                    </div>
-                    <div style={{ display: 'flex', height: isMobile ? '50%' : '55%', width: '100%' }}>
-
-
-                        <ChatContainer>
-                            <Response ref={responseRef}>
-                                <MessageList
-                                    className='message-list'
-                                    lockable={true}
-                                    toBottomHeight={'100%'}
-                                    dataSource={messages.filter((m) => m.role !== 'system')}
-                                />
-                            </Response>
-
-                            <TextboxContainer>
-                                <Textarea
-                                    rows="1"
-                                    value={text}
-                                    onChange={handleInputChange}
-                                    placeholder="Speak my child..."
-                                />
-                                <SendButton disabled={isLoading} onClick={sendMessage}>Send</SendButton>
-                            </TextboxContainer>
-                        </ChatContainer>
-
-                    </div>
+            </div>
+            }
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-Z.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+            >
+            </div>
+            }
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+            >
+            </div>
+            }
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+            >
+            </div>
+            }
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-A.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+            >
+            </div>
+            }
+            <div
+              style={{ height: 155, width: 155, position: 'relative' }}
+            >
+              <div className="eye">
+                <div className="iris">
+                  <div className="pupil">
+                    <div className="pupil-shine"></div>
+                  </div>
                 </div>
-            </s.Container>
-        </s.Screen>
-    );
+                {/* <!--<div class="eyeshine"></div>--> */}
+                <div className="lids"></div>
+              </div>
+            </div>
+            {!isMobile && <div
+              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
+            >
+            </div>}
+          </div>
+          <div style={{ display: 'flex', height: isMobile ? '50%' : '55%', width: '100%' }}>
+
+            <ChatContainer>
+              <Response ref={responseRef}>
+                {messages
+                  .filter((m) => m.role !== 'system')
+                  .map((message, index) => (
+                    <Message key={index} message={message} />
+                  ))}
+              </Response>
+
+              <TextboxContainer>
+                <Textarea
+                  rows="1"
+                  value={text}
+                  onChange={handleInputChange}
+                  placeholder="Speak my child..."
+                />
+                <SendButton disabled={isLoading} onClick={sendMessage}>Send</SendButton>
+              </TextboxContainer>
+            </ChatContainer>
+
+          </div>
+        </div>
+      </s.Container>
+    </s.Screen>
+  );
 }
 
 export default Index;
