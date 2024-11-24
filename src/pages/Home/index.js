@@ -67,13 +67,19 @@ const ChatContainer = styled.div`
 const Response = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Align messages to the bottom */
   flex: 1;
   overflow-y: auto;
   border-radius: 5px;
   margin-bottom: 10px;
   user-select: text;
 `;
+
+const ResponseSub = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+`;
+
 const TextboxContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -691,11 +697,13 @@ The assistant should always remain adaptable, attentive, and responsive to the n
 
             <ChatContainer>
               <Response ref={responseRef}>
-                {messages
-                  .filter((m) => m.role !== 'system')
-                  .map((message, index) => (
-                    <Message key={index} message={message} />
-                  ))}
+                <ResponseSub>
+                    {messages
+                    .filter((m) => m.role !== 'system')
+                    .map((message, index) => (
+                        <Message key={index} message={message} />
+                    ))}
+                </ResponseSub>
               </Response>
 
               <TextboxContainer>
