@@ -305,7 +305,7 @@ When appropriate, the assistant should have knowledge of the following details a
 
 #### **The Sunset Machine**
 
-- **Launch Date**: Begins on **January 2, 2025**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
+- **Launch Date**: Begins on **January 3, 2025**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
 
 - **Function**:
 
