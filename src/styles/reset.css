@@ -179,3 +179,23 @@ div {
 .rce-mbox {
   background: transparent;
 }
+
+iframe {
+  display: none;
+}
+
+.cBDpJZ {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto; /* Ensures vertical scrolling */
+  overflow-x: hidden; /* Hides horizontal scrolling if not needed */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  user-select: text;
+  padding: 10px; /* Optional: Adds spacing around messages */
+}
+
+.cBDpJZ > :first-child {
+  margin-top: auto !important; /* Pushes only the first message down */
+}

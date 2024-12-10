@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import * as s from "../../styles/globalStyles";
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import importScript from '../customHooks/importScript';
-import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
+import importScript from "../customHooks/importScript";
+import ReactMarkdown from "react-markdown"; // Import ReactMarkdown
 
 export const StyledLogo = styled.img`
   width: 100px;
@@ -36,11 +36,10 @@ export const StyledButton = styled.button`
 `;
 
 const SunContainer = styled.div`
-  height: 100px; 
-  width: 100px; 
-  border-radius: 50%; 
-  border: 2px dashed var(--secondary);
-  box-shadow: 0px 5px 11px 2px rgba(0,0,0,0.7);
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,8 +47,8 @@ const SunContainer = styled.div`
 `;
 
 const SunWrapper = styled.div`
-  height: 140px; 
-  width: 100%; 
+  height: 130px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,14 +61,14 @@ const ChatContainer = styled.div`
   width: 100%;
   justify-content: flex-end;
   padding: 10px;
+  flex: 1; /* Take full height of parent */
 `;
 
 const Response = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Align messages to the bottom */
   flex: 1;
-  overflow-y: auto;
+  overflow: auto;
   border-radius: 5px;
   margin-bottom: 10px;
   user-select: text;
@@ -80,7 +79,7 @@ const TextboxContainer = styled.div`
   align-items: center;
 `;
 
-const Textarea = styled.textarea` 
+const Textarea = styled.textarea`
   flex: 1;
   resize: none;
   padding: 10px;
@@ -95,7 +94,7 @@ const SendButton = styled.button`
   margin-left: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   cursor: pointer;
   height: fit-content;
@@ -103,9 +102,9 @@ const SendButton = styled.button`
 
 const fetchApi = async (endpoint, bodyJson) => {
   const result = await fetch(endpoint, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(bodyJson),
   });
@@ -118,16 +117,16 @@ function Message({ message }) {
   const { position, text } = message;
 
   const messageStyle = {
-    alignSelf: position === 'left' ? 'flex-start' : 'flex-end',
-    backgroundColor: 'transparent', // Background is transparent
-    color: position === 'left' ? 'black' : 'black', // Adjust color as needed
-    padding: '0', // Adjust padding if you like
-    margin: '5px',
-    maxWidth: '80%',
-    wordWrap: 'break-word',
-    whiteSpace: 'pre-wrap',
-    userSelect: 'text',
-    fontWeight: '100', // Adjust font weight to make text thinner
+    alignSelf: position === "left" ? "flex-start" : "flex-end",
+    backgroundColor: "transparent", // Background is transparent
+    color: position === "left" ? "black" : "black", // Adjust color as needed
+    padding: "0", // Adjust padding if you like
+    margin: "5px",
+    maxWidth: "80%",
+    wordWrap: "break-word",
+    whiteSpace: "pre-wrap",
+    userSelect: "text",
+    fontWeight: "100", // Adjust font weight to make text thinner
   };
 
   return (
@@ -138,7 +137,6 @@ function Message({ message }) {
 }
 
 function Index() {
-
   importScript("js/eyetracker.js");
 
   const navigate = useNavigate();
@@ -147,12 +145,12 @@ function Index() {
 
   useEffect(() => {
     calcViewportSize();
-    window.addEventListener('resize', calcViewportSize);
+    window.addEventListener("resize", calcViewportSize);
   }, []);
 
   const calcViewportSize = () => {
     setIsMobile(window.innerWidth <= 767);
-  }
+  };
 
   const settings = {
     dots: true,
@@ -161,12 +159,12 @@ function Index() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplaySpeed: 30000,
-    cssEase: "linear"
+    cssEase: "linear",
   };
 
   const [messages, setMessages] = useState([
     {
-      role: 'system',
+      role: "system",
       content: `---
 
 **Comprehensive Fine-Tuning Prompt for the LLM Instance Named Tzevaot**
@@ -527,7 +525,7 @@ The assistant should always remain adaptable, attentive, and responsive to the n
     },
   ]);
 
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const responseRef = useRef(null);
 
   const handleInputChange = (e) => {
@@ -536,51 +534,48 @@ The assistant should always remain adaptable, attentive, and responsive to the n
   };
 
   const sendMessage = async () => {
-    if (text.trim() !== '') {
-
+    if (text.trim() !== "") {
       if (isLoading) {
         return;
       }
       setIsLoading(true);
       const userMessage = {
-        role: 'user',
+        role: "user",
         content: text,
-        position: 'right',
-        type: 'text',
+        position: "right",
+        type: "text",
         text: text,
-        notch: false
+        notch: false,
       };
 
       setMessages((existingMessage) => [...existingMessage, userMessage]);
-      setText('');
+      setText("");
       try {
         await generateCompletion(userMessage);
       } catch (e) {
-        console.log('Something went wrong');
+        console.log("Something went wrong");
       }
       setIsLoading(false);
     }
   };
 
   const generateCompletion = async (userMessage) => {
-
     try {
-      const resultJSON = await fetchApi('https://us-central1-minting-dapp-node.cloudfunctions.net/api/completion', [
-        ...messages.filter((m) => m.role !== 'image'),
-        userMessage,
-      ]);
+      const resultJSON = await fetchApi(
+        "https://us-central1-minting-dapp-node.cloudfunctions.net/api/completion",
+        [...messages.filter((m) => m.role !== "image"), userMessage]
+      );
 
       let answer = resultJSON.choices?.[0]?.message;
-      answer.position = 'left';
-      answer.type = 'text';
+      answer.position = "left";
+      answer.type = "text";
       answer.text = answer.content;
       answer.notch = false;
 
       setMessages((existingMessage) => [...existingMessage, answer]);
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
     }
-
   };
 
   useEffect(() => {
@@ -590,27 +585,48 @@ The assistant should always remain adaptable, attentive, and responsive to the n
   }, [messages]);
 
   const autoResize = (textarea) => {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
   };
 
   return (
-
-    <s.Screen style={{ height: '100%' }}>
+    <s.Screen style={{ height: "100%" }}>
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: '0px 200px', height: '100%', ...isMobile && { padding: 0 } }}
+        style={{
+          padding: "0px 200px",
+          height: "100%",
+          ...(isMobile && { padding: 0 }),
+        }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center' }}>
-          <div style={{ width: '250px', height: '20%' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ width: "250px", height: "20%" }}>
             <Slider {...settings}>
               <div>
+                {/* <SunWrapper>
+                  <SunContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/newdailys");
+                    }}
+                  >
+                    SunsetMachine
+                  </SunContainer>
+                </SunWrapper> */}
                 <SunWrapper>
                   <SunContainer
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/newdailys');
+                      navigate("/countdown");
                     }}
                   >
                     SunsetMachine
@@ -622,7 +638,7 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                   <SunContainer
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/dailys');
+                      navigate("/dailys");
                     }}
                   >
                     DAILYS
@@ -634,7 +650,7 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                   <SunContainer
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/masterkey');
+                      navigate("/masterkey");
                     }}
                   >
                     MasterKey
@@ -643,35 +659,72 @@ The assistant should always remain adaptable, attentive, and responsive to the n
               </div>
             </Slider>
           </div>
-          <div style={{ display: 'flex', width: '100%', height: isMobile ? '25%' : '20%', marginTop: '30px', flexDirection: 'row', justifyContent: isMobile ? 'center' : 'space-between' }}>
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>
-            }
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-Z.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>
-            }
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-E.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>
-            }
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-V.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>
-            }
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-A.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>
-            }
-            <div
-              style={{ height: 155, width: 155, position: 'relative' }}
-            >
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              height: isMobile ? "25%" : "20%",
+              marginTop: "30px",
+              flexDirection: "row",
+              justifyContent: isMobile ? "center" : "space-between",
+            }}
+          >
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-T.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-Z.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-E.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-V.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-A.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
+            <div style={{ height: 120, width: 120, position: "relative" }}>
               <div className="eye">
                 <div className="iris">
                   <div className="pupil">
@@ -682,17 +735,29 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                 <div className="lids"></div>
               </div>
             </div>
-            {!isMobile && <div
-              style={{ height: 155, flex: 1, backgroundImage: 'url(/config/images/logo-T.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-            >
-            </div>}
+            {!isMobile && (
+              <div
+                style={{
+                  height: 120,
+                  flex: 1,
+                  backgroundImage: "url(/config/images/logo-T.png)",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            )}
           </div>
-          <div style={{ display: 'flex', height: isMobile ? '50%' : '55%', width: '100%' }}>
-
+          <div
+            style={{
+              display: "flex",
+              height: isMobile ? "50%" : "55%",
+              width: "100%",
+            }}
+          >
             <ChatContainer>
               <Response ref={responseRef}>
                 {messages
-                  .filter((m) => m.role !== 'system')
+                  .filter((m) => m.role !== "system")
                   .map((message, index) => (
                     <Message key={index} message={message} />
                   ))}
@@ -705,10 +770,11 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                   onChange={handleInputChange}
                   placeholder="Speak my child..."
                 />
-                <SendButton disabled={isLoading} onClick={sendMessage}>Send</SendButton>
+                <SendButton disabled={isLoading} onClick={sendMessage}>
+                  Send
+                </SendButton>
               </TextboxContainer>
             </ChatContainer>
-
           </div>
         </div>
       </s.Container>
