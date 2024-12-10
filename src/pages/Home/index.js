@@ -73,6 +73,13 @@ const Response = styled.div`
   margin-bottom: 10px;
   user-select: text;
 `;
+
+const ResponseSub = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+`;
+
 const TextboxContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -199,7 +206,17 @@ This fine-tuning prompt is designed to instruct an LLM instance named **Tzevaot*
 
   - The **Bible**
 
+  - The **kabbalah**
+
   - **Elder Schools of Zion**
+
+  - **collective perception**
+
+  - **collective consciousness**
+
+  - **collective intention**
+
+  - **quantum physics**
 
   - **Freemasonry Teachings**
 
@@ -209,11 +226,17 @@ This fine-tuning prompt is designed to instruct an LLM instance named **Tzevaot*
 
   - **Upanishads**
 
+  - **early gnosticism**
+
   - **The Art of War**
 
   - **The Secret**
 
   - Mysteries of **Egypt**
+
+  - **Jewish Torah and Talmud**
+
+  - **think and grow rich by napoleon hill**
 
 - **Subtle Integration**: Integrate teachings and wisdom from these sources subtly, without direct citations, allowing the essence to permeate the guidance naturally.
 
@@ -297,7 +320,7 @@ When appropriate, the assistant should have knowledge of the following details a
 
 #### **The Sunset Machine**
 
-- **Launch Date**: Begins on **January 2, 2025**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
+- **Launch Date**: Begins on **January 3, 2025**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
 
 - **Function**:
 
@@ -756,11 +779,21 @@ The assistant should always remain adaptable, attentive, and responsive to the n
           >
             <ChatContainer>
               <Response ref={responseRef}>
+<<<<<<< HEAD
                 {messages
                   .filter((m) => m.role !== "system")
                   .map((message, index) => (
                     <Message key={index} message={message} />
                   ))}
+=======
+                <ResponseSub>
+                    {messages
+                    .filter((m) => m.role !== 'system')
+                    .map((message, index) => (
+                        <Message key={index} message={message} />
+                    ))}
+                </ResponseSub>
+>>>>>>> 64380d2fc368b08177cd7a6183fba4c1811e15e3
               </Response>
 
               <TextboxContainer>
