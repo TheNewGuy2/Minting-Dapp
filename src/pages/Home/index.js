@@ -780,12 +780,15 @@ The assistant should always remain adaptable, attentive, and responsive to the n
             <ChatContainer>
               <Response ref={responseRef}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 {messages
                   .filter((m) => m.role !== "system")
                   .map((message, index) => (
                     <Message key={index} message={message} />
                   ))}
 =======
+=======
+>>>>>>> origin/main
                 <ResponseSub>
                     {messages
                     .filter((m) => m.role !== 'system')
@@ -793,7 +796,10 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                         <Message key={index} message={message} />
                     ))}
                 </ResponseSub>
+<<<<<<< HEAD
 >>>>>>> 64380d2fc368b08177cd7a6183fba4c1811e15e3
+=======
+>>>>>>> origin/main
               </Response>
 
               <TextboxContainer>
