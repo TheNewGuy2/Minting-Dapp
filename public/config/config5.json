@@ -1,6 +1,6 @@
 {
-    "CONTRACT_ADDRESS": "0xA232302f4eAa80550E6Bd54bD0B01736CF909A53",
-    "SCAN_LINK": "https://polygonscan.com/0xA232302f4eAa80550E6Bd54bD0B01736CF909A53",
+    "CONTRACT_ADDRESS": "0xab1F44aFe8276B8758d8564E0a5f62E01B8fE979",
+    "SCAN_LINK": "https://polygonscan.com/0xab1F44aFe8276B8758d8564E0a5f62E01B8fE979",
     "NETWORK": {
       "NAME": "Polygon",
       "SYMBOL": "Matic",
@@ -8,10 +8,10 @@
     },
     "NFT_NAME": "SunsetMachine",
     "SYMBOL": "SSM",
-    "MAX_SUPPLY": 9999,
+    "MAX_SUPPLY": 21000000,
     "WEI_COST":  36900000000000000000,
     "DISPLAY_COST": 36.9000,
-    "GAS_LIMIT": 2850000,
+    "GAS_LIMIT": 28500000,
     "MARKETPLACE": "Opeansea",
     "MARKETPLACE_LINK": "https://opensea.io/collection/sunsetmachine",
     "SHOW_BACKGROUND": true
