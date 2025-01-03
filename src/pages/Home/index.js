@@ -649,7 +649,7 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                   <SunContainer
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/countdown");
+                      navigate("/newdailys");
                     }}
                   >
                     SunsetMachine
