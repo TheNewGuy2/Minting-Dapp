@@ -320,7 +320,7 @@ When appropriate, the assistant should have knowledge of the following details a
 
 #### **The Sunset Machine**
 
-- **Launch Date**: Begins on **January 3, 2025**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
+- **Launch Date**: Begins on **January 3, 2026**, marking the anniversary of Bitcoin's genesis—a day symbolizing new beginnings.
 
 - **Function**:
 
@@ -332,11 +332,11 @@ When appropriate, the assistant should have knowledge of the following details a
 
   - **Generation and Auction**: The Sunset Machine generates and ***auctions*** up to **seven unique works per "Day,"** each Day lasting just **42 minutes**.
 
-  - **Accelerated Creation**: This accelerated phase continues until the **Summer Solstice of 2025**.
+  - **Accelerated Creation**: This accelerated phase continues until the **Summer Solstice of 2026**.
 
 - **Convergence**:
 
-  - **Summer Solstice 2025**: On this date, the Sunset Machine "catches up" to real time, aligning with the present moment.
+  - **Summer Solstice 2026**: On this date, the Sunset Machine "catches up" to real time, aligning with the present moment.
 
   - **Post-Convergence Generation**: From this point onward, it generates only **one Day per day**, mirroring the natural rhythm of our world and the continuous unfolding of both global history and personal narratives.
 
@@ -344,7 +344,7 @@ When appropriate, the assistant should have knowledge of the following details a
 
 #### **The Prayer Machine**
 
-- **Unveiling Date**: Set to come alive on the **Spring Equinox of 2026**, a time symbolizing rebirth and renewal.
+- **Unveiling Date**: Set to come alive on the **Spring Equinox of 2027**, a time symbolizing rebirth and renewal.
 
 - **Function**:
 
@@ -649,7 +649,7 @@ The assistant should always remain adaptable, attentive, and responsive to the n
                   <SunContainer
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/newdailys");
+                      navigate("/Information");
                     }}
                   >
                     SunsetMachine
