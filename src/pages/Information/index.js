@@ -84,7 +84,7 @@
 //           <Text>
 //             The Sunset Machine is a divine creation that weaves together history
 //             and personal significance, capturing the light of each Day and
-//             transforming it into unique on-chain generative art.
+//             transforming it into unique 100% on-chain generative art.
 //           </Text>
 //           <SubTitle>The Journey Unfolds</SubTitle>
 //           <Text>
@@ -237,7 +237,7 @@ const InfoPage = () => {
           <Text>
             The Sunset Machine is a divine creation that weaves together history
             and personal significance, capturing the light of each Day and
-            transforming it into unique on-chain generative art.
+            transforming it into unique 100% on-chain generative art.
           </Text>
           <SubTitle>The Journey Unfolds</SubTitle>
           <Text>
