@@ -73,7 +73,7 @@
 //             digital.
 //           </Text>
 //           <Text>
-//             On <Highlight>January 3, 2025</Highlight>, marking the anniversary
+//             On <Highlight>January 3, 2026</Highlight>, marking the anniversary
 //             of Bitcoin's genesis, the <Highlight>Sunset Machine</Highlight>{" "}
 //             shall awaken. This sacred vessel captures the essence of each Day
 //             since that pivotal moment, allowing you to claim a "Day" that
@@ -88,17 +88,17 @@
 //           </Text>
 //           <SubTitle>The Journey Unfolds</SubTitle>
 //           <Text>
-//             <Highlight>January 3, 2025:</Highlight> The Sunset Machine begins
+//             <Highlight>January 3, 2026:</Highlight> The Sunset Machine begins
 //             its sacred work, generating and auctioning unique works of art per
 //             "Day."
 //           </Text>
 //           <Text>
-//             <Highlight>Summer Solstice 2025:</Highlight> The Sunset Machine will
+//             <Highlight>Summer Solstice 2026:</Highlight> The Sunset Machine will
 //             align with real-time, creating one Day per day.
 //           </Text>
 //           <SubTitle>Introducing the "Prayer Machine"</SubTitle>
 //           <Text>
-//             By Spring Equinox 2026, the Prayer Machine will serve as a divine
+//             By Spring Equinox 2027, the Prayer Machine will serve as a divine
 //             conduit—a bridge between the earthly and the celestial. By
 //             sacrificing a Day, you engage in a sacred ritual of intention and
 //             connection with the universe.
@@ -226,7 +226,7 @@ const InfoPage = () => {
             </Text>
             </Text>
           <Text>
-            On <Highlight>January 3, 2025</Highlight>, marking the anniversary
+            On <Highlight>January 3, 2026</Highlight>, marking the anniversary
             of Bitcoin's genesis, the <Highlight>Sunset Machine</Highlight>{" "}
             shall awaken. This sacred vessel captures the essence of each Day
             since that pivotal moment, allowing you to claim a "Day" that
@@ -241,17 +241,17 @@ const InfoPage = () => {
           </Text>
           <SubTitle>The Journey Unfolds</SubTitle>
           <Text>
-            <Highlight>January 3, 2025:</Highlight> The Sunset Machine begins
+            <Highlight>January 3, 2026:</Highlight> The Sunset Machine begins
             its sacred work, generating and auctioning unique works of art every
             42min.
           </Text>
           <Text>
-            <Highlight>Summer Solstice 2025:</Highlight> The Sunset Machine will
+            <Highlight>Summer Solstice 2026:</Highlight> The Sunset Machine will
             align with real-time, creating one unique "Day" per day.
           </Text>
           <SubTitle>Introducing the "Prayer Machine"</SubTitle>
           <Text>
-            By Spring Equinox 2026, the Prayer Machine will serve as a divine
+            By Spring Equinox 2027, the Prayer Machine will serve as a divine
             conduit—a bridge between the earthly and the celestial. By
             sacrificing a Day, you engage in a sacred ritual of intention and
             connection with the universe.
