@@ -1,3 +1,5 @@
+// src/redux/data/dataActions.js
+
 // log
 import store from "../store";
 
@@ -21,23 +23,46 @@ const fetchDataFailed = (payload) => {
   };
 };
 
+/**
+ * Fetch contract-wide data AND per-account data.
+ *
+ * Currently:
+ * - totalSupply: from smartContract.totalSupply()
+ * - balance: from smartContract.balanceOf(account) if account is connected
+ */
 export const fetchData = () => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-      let totalSupply = await store
-        .getState()
-        .blockchain.smartContract.methods.totalSupply()
-        .call();
-      // let cost = await store
-      //   .getState()
-      //   .blockchain.smartContract.methods.cost()
-      //   .call();
+      const state = store.getState();
+      const blockchain = state.blockchain;
+
+      const smartContract = blockchain.smartContract;
+      const account = blockchain.account;
+
+      if (!smartContract) {
+        throw new Error("Smart contract not loaded in state.");
+      }
+
+      // Global data
+      const totalSupply = await smartContract.methods.totalSupply().call();
+
+      // Per-account data (holder detection)
+      let balance = 0;
+      if (account && account !== "") {
+        try {
+          balance = await smartContract.methods.balanceOf(account).call();
+        } catch (e) {
+          console.error("Error fetching balanceOf for account:", account, e);
+          balance = 0;
+        }
+      }
 
       dispatch(
         fetchDataSuccess({
           totalSupply,
-          // cost,
+          balance,
+          // cost: (you can re-enable cost later if you want)
         })
       );
     } catch (err) {
