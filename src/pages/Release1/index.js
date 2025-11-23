@@ -4,8 +4,9 @@ import { connect } from "../../redux/blockchain/blockchainActions";
 import { fetchData } from "../../redux/data/dataActions";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
+import { useNavigate } from "react-router-dom";
+import LazyLoad from "react-lazyload";
+
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
@@ -60,8 +61,6 @@ export const ResponsiveWrapper = styled.div`
   flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
-    flex-direction: row;
-  }
   @media (min-width: 900px) {
     flex-direction: row;
     width: 100%;
@@ -117,7 +116,7 @@ const CircularContainerImg = styled.img`
 const SunContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 `;
 
 const BottomRightCornerContainer = styled.div`
@@ -236,51 +235,78 @@ function Index() {
   useEffect(() => {
     getData();
     calcViewportSize();
-    window.addEventListener('resize', calcViewportSize);
+    window.addEventListener("resize", calcViewportSize);
   }, [blockchain.account]);
 
   const calcViewportSize = () => {
     setIsMobileSm(window.innerWidth <= 320);
     setIsMobile(window.innerWidth <= 768);
-  }
-
-//  useEffect(() => {
-//    getData();
-//    if (blockchain.account != "" && blockchain.NFT_NAME != null) {
-//      dispatch(fetchData(blockchain.account));
-//    }
-//  }, [blockchain.NFT_NAME]);
-
-
+  };
 
   return (
     <s.Screen>
-      { blockchain && blockchain.isOwnSmartContract && blockchain.isOwnSmartContract.length > 0 && <BottomRightCornerContainer>
-          <a href="https://www.wearespecimen.com" target="_blank"><BottomRightCornerImg src='/config/images/specimen.png' /></a>
-        </BottomRightCornerContainer>
-      }
+      {blockchain &&
+        blockchain.isOwnSmartContract &&
+        blockchain.isOwnSmartContract.length > 0 && (
+          <BottomRightCornerContainer>
+            <a
+              href="https://www.wearespecimen.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <BottomRightCornerImg src="/config/images/specimen.png" />
+            </a>
+          </BottomRightCornerContainer>
+        )}
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: 100, ...isMobile && { padding: '100px 0px' } }}
+        style={{ padding: 100, ...(isMobile && { padding: "100px 0px" }) }}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{marginBottom:'30px'}}
-                style={{ cursor: 'pointer' }}
-                onClick={
-                  
-                  (e) => navigate('/home', '_top') } />
-        <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test>
-          <CircularContainer style={isMobile ? { animation: 'none', alignItems: 'center', top: '-35px' } : { top: 0 }}>
-            { !blockchain.account && 
-                <CircularContainerImg 
-                    style={isMobile ? {} : { height: '100%', objectFit: 'contain' }} 
-                    src={'/config/images/circle.png'}
-                    onClick={(e) => window.open("https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/", '_blank') } 
-                />
+        <StyledLogo
+          alt={"logo"}
+          src={"/config/images/logo.png"}
+          style={{ marginBottom: "30px", cursor: "pointer" }}
+          onClick={(e) => navigate("/home", "_top")}
+        />
+        <ResponsiveWrapper
+          flex={1}
+          style={{
+            position: "relative",
+            maxWidth: "500px",
+            padding: 50,
+            ...(isMobile && { padding: "50px 10px", overflow: "hidden" }),
+          }}
+          test={"true"}
+        >
+          <CircularContainer
+            style={
+              isMobile
+                ? { animation: "none", alignItems: "center", top: "-35px" }
+                : { top: 0 }
             }
+          >
+            {!blockchain.account && (
+              <CircularContainerImg
+                style={
+                  isMobile
+                    ? {}
+                    : { height: "100%", objectFit: "contain" }
+                }
+                src={"/config/images/circle.png"}
+                onClick={(e) =>
+                  window.open(
+                    "https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/",
+                    "_blank"
+                  )
+                }
+              />
+            )}
           </CircularContainer>
-          <SunContainer 
-            style={{ ...isMobile ? { borderRadius: '50%' } : { width:'100%' }}}
+          <SunContainer
+            style={{
+              ...(isMobile ? { borderRadius: "50%" } : { width: "100%" }),
+            }}
           >
             <s.Container
               flex={1}
@@ -290,12 +316,16 @@ function Index() {
               style={{
                 backgroundColor: "var(--accent)",
                 padding: 10,
-                borderRadius: '50%',
+                borderRadius: "50%",
                 border: "2px dashed var(--secondary)",
                 boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-                position: 'relative',
-                padding: '30px',            
-                ...isMobile && { maxWidth: '300px', height: '300px', margin:'0px auto' }
+                position: "relative",
+                padding: "30px",
+                ...(isMobile && {
+                  maxWidth: "300px",
+                  height: "300px",
+                  margin: "0px auto",
+                }),
               }}
             >
               <s.TextTitle
@@ -322,43 +352,77 @@ function Index() {
               {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                 <>
                   <s.TextTitle
-                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--accent-text)",
+                    }}
                   >
                     The sale has ended.
                   </s.TextTitle>
                   <s.TextDescription
-                    style={{ textAlign: "center", color: "var(--accent-text)" }}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--accent-text)",
+                    }}
                   >
                     You can still find {CONFIG.NFT_NAME} on
                   </s.TextDescription>
                   <s.SpacerSmall />
-                  <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                  <StyledLink
+                    target={"_blank"}
+                    href={CONFIG.MARKETPLACE_LINK}
+                  >
                     {CONFIG.MARKETPLACE}
                   </StyledLink>
                 </>
               ) : (
                 <>
                   <s.TextTitle
-                    style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--accent-text)",
+                      ...(isMobile && { fontSize: "16px" }),
+                    }}
                   >
                     1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                     {CONFIG.NETWORK.SYMBOL}.
                   </s.TextTitle>
                   <s.SpacerXSmall />
                   <s.TextDescription
-                    style={{ textAlign: "center", color: "var(--primary-text)" }}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--primary-text)",
+                    }}
                   >
                     Excluding gas fees.
                   </s.TextDescription>
+
+                  {/* NEW: show holder balance when connected */}
+                  {blockchain.account && (
+                    <>
+                      <s.SpacerXSmall />
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                        }}
+                      >
+                        You currently hold{" "}
+                        {Number(data.balance || 0)} {CONFIG.SYMBOL} token
+                        {Number(data.balance) === 1 ? "" : "s"}.
+                      </s.TextDescription>
+                    </>
+                  )}
+
                   <s.SpacerSmall />
                   {blockchain.account === "" ||
-                    blockchain.smartContract === null ? (
+                  blockchain.smartContract === null ? (
                     <s.Container ai={"center"} jc={"center"}>
                       <s.TextDescription
                         style={{
                           textAlign: "center",
                           color: "var(--accent-text)",
-                          ...isMobile && { fontSize: '14px' }
+                          ...(isMobile && { fontSize: "14px" }),
                         }}
                       >
                         Connect to the {CONFIG.NETWORK.NAME} network
@@ -451,23 +515,19 @@ function Index() {
           </SunContainer>
         </ResponsiveWrapper>
         <s.SpacerMedium />
-        <s.Container flex={0} jc={"center"} ai={"center"} style={{ width: "50%" }}>
+        <s.Container
+          flex={0}
+          jc={"center"}
+          ai={"center"}
+          style={{ width: "50%" }}
+        >
           <s.TextDescription
-//            style={{
-//              textAlign: "center",
-//              color: "var(--accent-text)",
-//            }}
-//          >
-//            Please make sure you are connected to the right network (
-//</s.Container>            {CONFIG.NETWORK.NAME} Mainnet) and the correct address.
-//          </s.TextDescription>
-//          <s.SpacerSmall />
-//          <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--accent-text)",
             }}
           >
+            {/* Placeholder for extra info if needed */}
           </s.TextDescription>
         </s.Container>
       </s.Container>
