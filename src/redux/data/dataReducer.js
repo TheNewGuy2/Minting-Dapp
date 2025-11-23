@@ -1,7 +1,10 @@
+// src/redux/data/dataReducer.js
+
 const initialState = {
   loading: false,
   totalSupply: 0,
   cost: 0,
+  balance: 0,   // NEW: per-account token balance
   error: false,
   errorMsg: "",
 };
@@ -20,7 +23,8 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         totalSupply: action.payload.totalSupply,
-        // cost: action.payload.cost,
+        balance: action.payload.balance ?? 0, // ensure defined
+        // cost: action.payload.cost,  // still commented out as before
         error: false,
         errorMsg: "",
       };
