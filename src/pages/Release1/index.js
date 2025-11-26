@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "../../redux/blockchain/blockchainActions";
 import { fetchData } from "../../redux/data/dataActions";
 import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LazyLoad from "react-lazyload";
 import TzevaotChat from "../../components/TzevaotChat";
 
 const truncate = (input, len) =>
@@ -75,23 +74,6 @@ export const StyledLogo = styled.img`
   }
   transition: width 0.5s;
   transition: height 0.5s;
-`;
-
-export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 100px;
-  @media (min-width: 900px) {
-    width: 250px;
-    hight: 250px;
-  }
-  @media (min-width: 1000px) {
-    width: 300px;
-    hight: 250px;
-  }
-  transition: width 0.5s;
 `;
 
 export const StyledLink = styled.a`
@@ -227,16 +209,21 @@ function Index() {
 
   const navigate = useNavigate();
 
+  // 🚫 Remove auto-connect on mount; only load config
   useEffect(() => {
     getConfig();
-    dispatch(connect());
-    getData();
+    // dispatch(connect());
+    // getData();
   }, []);
 
+  // When account changes (user connects), fetch data
   useEffect(() => {
     getData();
     calcViewportSize();
     window.addEventListener("resize", calcViewportSize);
+    return () => {
+      window.removeEventListener("resize", calcViewportSize);
+    };
   }, [blockchain.account]);
 
   const calcViewportSize = () => {
@@ -533,7 +520,7 @@ function Index() {
         </s.Container>
       </s.Container>
 
-      {/* Mount the Tzevaot chat widget so it’s available on this page */}
+      {/* Tzevaot Chat widget */}
       <TzevaotChat />
     </s.Screen>
   );
