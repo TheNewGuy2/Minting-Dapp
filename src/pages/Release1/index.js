@@ -6,6 +6,7 @@ import * as s from "../../styles/globalStyles";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LazyLoad from "react-lazyload";
+import TzevaotChat from "../../components/TzevaotChat";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -397,7 +398,7 @@ function Index() {
                     Excluding gas fees.
                   </s.TextDescription>
 
-                  {/* NEW: show holder balance when connected */}
+                  {/* Holder balance display */}
                   {blockchain.account && (
                     <>
                       <s.SpacerXSmall />
@@ -527,10 +528,13 @@ function Index() {
               color: "var(--accent-text)",
             }}
           >
-            {/* Placeholder for extra info if needed */}
+            {/* Extra descriptive copy can go here */}
           </s.TextDescription>
         </s.Container>
       </s.Container>
+
+      {/* Mount the Tzevaot chat widget so it’s available on this page */}
+      <TzevaotChat />
     </s.Screen>
   );
 }
