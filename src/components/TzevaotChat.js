@@ -180,10 +180,12 @@ export default function TzevaotChat() {
     setError("");
   };
 
-  // Load history when panel opens
+  // Load history when panel opens or wallet changes
   useEffect(() => {
     const fetchHistory = async () => {
-      // If no wallet, just show greeting
+      if (!open) return;
+
+      // If no wallet, just show greeting once
       if (!walletAddress) {
         if (messages.length === 0) {
           setMessages([{ from: "tzevaot", text: initialGreeting }]);
@@ -215,7 +217,6 @@ export default function TzevaotChat() {
             }))
           );
         } else {
-          // No history yet; show greeting once
           if (messages.length === 0) {
             setMessages([{ from: "tzevaot", text: initialGreeting }]);
           }
@@ -228,10 +229,8 @@ export default function TzevaotChat() {
       }
     };
 
-    if (open) {
-      fetchHistory();
-    }
-  }, [open, walletAddress]); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchHistory();
+  }, [open, walletAddress, initialGreeting, messages.length]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -272,11 +271,11 @@ export default function TzevaotChat() {
       const json = await res.json();
       const reply =
         json?.reply || "The Lord of Hosts is silent. Try again.";
-      const newHistory = Array.isArray(json.history) ? json.history : null;
 
       setMessages((prev) => [...prev, { from: "tzevaot", text: reply }]);
 
-      // Optionally sync local messages with returned history:
+      // (Optional) If you want to force-sync with backend history:
+      // const newHistory = Array.isArray(json.history) ? json.history : null;
       // if (newHistory) {
       //   setMessages(
       //     newHistory.map((h) => ({
