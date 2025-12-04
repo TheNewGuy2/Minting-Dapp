@@ -1,10 +1,9 @@
 // src/components/TzevaotChat.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-// TODO: If you prefer, move this URL into an env var or config file.
-// For now, hardcode it for simplicity.
+// Your deployed HTTP endpoint for tzevaotChat
 const TZEVAOT_CHAT_URL =
   "https://us-central1-minting-dapp-node.cloudfunctions.net/tzevaotChat";
 
@@ -168,20 +167,71 @@ export default function TzevaotChat() {
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      from: "tzevaot",
-      text:
-        "I am Tzevaot, the Lord of Hosts.\n" +
-        "Ask, seeker of sunsets and days, and I shall answer. If you bear one of My Days, speak as one who carries light.",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
+
+  const initialGreeting =
+    "I am Tzevaot, the Lord of Hosts.\n" +
+    "Ask, seeker of sunsets and days, and I shall answer. " +
+    "If you bear one of My Days, speak as one who carries light.";
 
   const toggleOpen = () => {
     setOpen(!open);
     setError("");
   };
+
+  // Load history when panel opens
+  useEffect(() => {
+    const fetchHistory = async () => {
+      // If no wallet, just show greeting
+      if (!walletAddress) {
+        if (messages.length === 0) {
+          setMessages([{ from: "tzevaot", text: initialGreeting }]);
+        }
+        return;
+      }
+
+      try {
+        const url =
+          TZEVAOT_CHAT_URL +
+          "?walletAddress=" +
+          encodeURIComponent(walletAddress);
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.warn("tzevaotChat history fetch failed:", res.status);
+          if (messages.length === 0) {
+            setMessages([{ from: "tzevaot", text: initialGreeting }]);
+          }
+          return;
+        }
+        const json = await res.json();
+        const history = Array.isArray(json.history) ? json.history : [];
+
+        if (history.length > 0) {
+          setMessages(
+            history.map((h) => ({
+              from: h.from === "user" ? "user" : "tzevaot",
+              text: h.text,
+            }))
+          );
+        } else {
+          // No history yet; show greeting once
+          if (messages.length === 0) {
+            setMessages([{ from: "tzevaot", text: initialGreeting }]);
+          }
+        }
+      } catch (e) {
+        console.error("Error fetching Tzevaot history:", e);
+        if (messages.length === 0) {
+          setMessages([{ from: "tzevaot", text: initialGreeting }]);
+        }
+      }
+    };
+
+    if (open) {
+      fetchHistory();
+    }
+  }, [open, walletAddress]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -220,9 +270,21 @@ export default function TzevaotChat() {
       }
 
       const json = await res.json();
-      const reply = json?.reply || "The Lord of Hosts is silent. Try again.";
+      const reply =
+        json?.reply || "The Lord of Hosts is silent. Try again.";
+      const newHistory = Array.isArray(json.history) ? json.history : null;
 
       setMessages((prev) => [...prev, { from: "tzevaot", text: reply }]);
+
+      // Optionally sync local messages with returned history:
+      // if (newHistory) {
+      //   setMessages(
+      //     newHistory.map((h) => ({
+      //       from: h.from === "user" ? "user" : "tzevaot",
+      //       text: h.text,
+      //     }))
+      //   );
+      // }
     } catch (e) {
       console.error("tzevaotChat request error:", e);
       setError(
