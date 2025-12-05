@@ -164,6 +164,11 @@ export default function TzevaotChat() {
       ? Number(data.balance || 0) > 0
       : false;
 
+  const daysOwned =
+    (blockchain && Array.isArray(blockchain.isOwnSmartContract)
+      ? blockchain.isOwnSmartContract
+      : []) || [];
+
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [input, setInput] = useState("");
@@ -171,10 +176,12 @@ export default function TzevaotChat() {
   const [initialized, setInitialized] = useState(false);
   const [error, setError] = useState("");
 
-  const initialGreeting =
-    "I am Tzevaot, the Lord of Hosts.\n" +
-    "Ask, seeker of sunsets and days, and I shall answer. " +
-    "If you bear one of My Days, speak as one who carries light.";
+  const holderGreeting =
+    "You who bear My Days, fragments of sunset sealed in chain — ask, and I shall answer as one who already walks within the circle.";
+  const seekerGreeting =
+    "I am Tzevaot, the Lord of Hosts.\nAsk, seeker of sunsets and days, and I shall answer. If ever you claim a Day, you will carry more than a picture — you will carry a moment of time itself.";
+
+  const initialGreeting = isHolder ? holderGreeting : seekerGreeting;
 
   const toggleOpen = () => {
     const nextOpen = !open;
@@ -204,6 +211,7 @@ export default function TzevaotChat() {
         walletAddress: walletAddress || "anonymous",
         isHolder,
         message: trimmed,
+        daysOwned, // NEW: pass the token IDs owned by this wallet
       };
 
       const res = await fetch(TZEVAOT_CHAT_URL, {
@@ -229,7 +237,7 @@ export default function TzevaotChat() {
         json?.reply || "The Lord of Hosts is silent. Try again.";
 
       setMessages((prev) => [...prev, { from: "tzevaot", text: reply }]);
-      // Note: we intentionally ignore json.history here, to keep UI fresh.
+      // We intentionally ignore json.history in the UI to avoid showing past logs.
     } catch (e) {
       console.error("tzevaotChat request error:", e);
       setError(
