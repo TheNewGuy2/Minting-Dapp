@@ -1,5 +1,5 @@
 // src/components/TzevaotChat.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -168,6 +168,7 @@ export default function TzevaotChat() {
   const [pending, setPending] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [initialized, setInitialized] = useState(false);
   const [error, setError] = useState("");
 
   const initialGreeting =
@@ -176,61 +177,16 @@ export default function TzevaotChat() {
     "If you bear one of My Days, speak as one who carries light.";
 
   const toggleOpen = () => {
-    setOpen(!open);
+    const nextOpen = !open;
+    setOpen(nextOpen);
     setError("");
+
+    // When opening for the first time, show greeting ONLY for this session
+    if (nextOpen && !initialized) {
+      setMessages([{ from: "tzevaot", text: initialGreeting }]);
+      setInitialized(true);
+    }
   };
-
-  // Load history when panel opens or wallet changes
-  useEffect(() => {
-    const fetchHistory = async () => {
-      if (!open) return;
-
-      // If no wallet, just show greeting once
-      if (!walletAddress) {
-        if (messages.length === 0) {
-          setMessages([{ from: "tzevaot", text: initialGreeting }]);
-        }
-        return;
-      }
-
-      try {
-        const url =
-          TZEVAOT_CHAT_URL +
-          "?walletAddress=" +
-          encodeURIComponent(walletAddress);
-        const res = await fetch(url);
-        if (!res.ok) {
-          console.warn("tzevaotChat history fetch failed:", res.status);
-          if (messages.length === 0) {
-            setMessages([{ from: "tzevaot", text: initialGreeting }]);
-          }
-          return;
-        }
-        const json = await res.json();
-        const history = Array.isArray(json.history) ? json.history : [];
-
-        if (history.length > 0) {
-          setMessages(
-            history.map((h) => ({
-              from: h.from === "user" ? "user" : "tzevaot",
-              text: h.text,
-            }))
-          );
-        } else {
-          if (messages.length === 0) {
-            setMessages([{ from: "tzevaot", text: initialGreeting }]);
-          }
-        }
-      } catch (e) {
-        console.error("Error fetching Tzevaot history:", e);
-        if (messages.length === 0) {
-          setMessages([{ from: "tzevaot", text: initialGreeting }]);
-        }
-      }
-    };
-
-    fetchHistory();
-  }, [open, walletAddress, initialGreeting, messages.length]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -273,17 +229,7 @@ export default function TzevaotChat() {
         json?.reply || "The Lord of Hosts is silent. Try again.";
 
       setMessages((prev) => [...prev, { from: "tzevaot", text: reply }]);
-
-      // (Optional) If you want to force-sync with backend history:
-      // const newHistory = Array.isArray(json.history) ? json.history : null;
-      // if (newHistory) {
-      //   setMessages(
-      //     newHistory.map((h) => ({
-      //       from: h.from === "user" ? "user" : "tzevaot",
-      //       text: h.text,
-      //     }))
-      //   );
-      // }
+      // Note: we intentionally ignore json.history here, to keep UI fresh.
     } catch (e) {
       console.error("tzevaotChat request error:", e);
       setError(
