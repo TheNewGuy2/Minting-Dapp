@@ -105,7 +105,7 @@
 //           </Text>
 //           <Text>
 //             Visit: <Link href="https://tzevaot.app">tzevaot.app</Link> and{" "}
-//             <Link href="https://opensea.io/collection/sunsetmachine">
+//             <Link href="https://opensea.io/collection/sunset-machine">
 //               OpenSea Collection
 //             </Link>{" "}
 //             for more updates.
@@ -258,7 +258,7 @@ const InfoPage = () => {
           </Text>
           <Text>
             Visit: <Link href="https://tzevaot.app">tzevaot.app</Link> and{" "}
-            <Link href="https://opensea.io/collection/sunsetmachine">
+            <Link href="https://opensea.io/collection/sunset-machine">
               OpenSea Collection
             </Link>{" "}
             for more updates.
