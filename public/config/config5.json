@@ -11,7 +11,7 @@
     "MAX_SUPPLY": 21000000,
     "WEI_COST":  3690000000000000,
     "DISPLAY_COST": 0.00369,
-    "GAS_LIMIT": 7800000,
+    "GAS_LIMIT": 380000,
     "MARKETPLACE": "Opeansea",
     "MARKETPLACE_LINK": "https://opensea.io/collection/sunset-machine",
     "SHOW_BACKGROUND": true
