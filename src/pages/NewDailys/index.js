@@ -166,38 +166,60 @@ function Index() {
     SHOW_BACKGROUND: false,
   });
 
-  const claimNFTs = () => {
-    let cost = data.cost;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNft(true);
-    blockchain.smartContract.methods
-      .mint()
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-        value: totalCostWei,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
-        setClaimingNft(false);
-        dispatch(fetchData(blockchain.account));
-      });
-  };
+  const claimNFTs = async () => {
+    try {
+      let cost = CONFIG.WEI_COST;
+      let totalCostWei = String(cost * mintAmount);
 
+      setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+      setClaimingNft(true);
+
+      const method = blockchain.smartContract.methods.mint(mintAmount);
+
+    // 1) Estimate gas
+      let estimatedGas;
+      try {
+        estimatedGas = await method.estimateGas({
+          from: blockchain.account,
+          value: totalCostWei,
+        });
+        console.log("Estimated gas:", estimatedGas);
+      } catch (e) {
+        console.warn("Gas estimation failed, using fallback GAS_LIMIT.", e);
+        estimatedGas = CONFIG.GAS_LIMIT * mintAmount;
+      }
+
+    // 2) Add buffer (20%)
+      const gas = Math.ceil(Number(estimatedGas) * 1.2);
+      console.log("Using gas with buffer:", gas);
+
+    // 3) Send tx
+      method
+        .send({
+          gas: String(gas), // ✅ use "gas", not "gasLimit"
+          to: CONFIG.CONTRACT_ADDRESS,
+          from: blockchain.account,
+          value: totalCostWei,
+        })
+        .once("error", (err) => {
+          console.log(err);
+          setFeedback("Sorry, something went wrong please try again later.");
+          setClaimingNft(false);
+        })
+        .then((receipt) => {
+          console.log(receipt);
+          setFeedback(
+            `WOW, the ${CONFIG.NFT_NAME} is yours! go visit OpenSea to view it.`
+          );
+          setClaimingNft(false);
+          dispatch(fetchData(blockchain.account));
+        });
+    } catch (err) {
+      console.error("claimNFTs error:", err);
+      setFeedback("Sorry, something went wrong please try again later.");
+      setClaimingNft(false);
+    }
+  };
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
