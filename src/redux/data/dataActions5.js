@@ -58,6 +58,8 @@ export const fetchData = () => {
       let isStagingName = await SmartContractObj.methods.stagingName().call();
       let isAuctionName = await SmartContractObj.methods.auctionName().call();
       let cost = await SmartContractObj.methods.cost().call();
+      let remainingTime = await SmartContractObj.methods.remainingTime(1).call();
+
 
       // ✅ Only try to read tokenURI if supply > 0
       if (Number.isFinite(totalSupply) && totalSupply > 0) {
