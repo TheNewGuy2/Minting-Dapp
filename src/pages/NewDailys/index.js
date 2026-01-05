@@ -166,17 +166,18 @@ function Index() {
     SHOW_BACKGROUND: false,
   });
 
+  // ✅ FIXED: contract mint() expects 0 params, so mint 1 per click
   const claimNFTs = async () => {
     try {
       let cost = CONFIG.WEI_COST;
-      let totalCostWei = String(cost * mintAmount);
+      let totalCostWei = String(cost); // ✅ no multiplying by mintAmount
 
       setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
       setClaimingNft(true);
 
-      const method = blockchain.smartContract.methods.mint(mintAmount);
+      const method = blockchain.smartContract.methods.mint(); // ✅ no args
 
-    // 1) Estimate gas
+      // 1) Estimate gas
       let estimatedGas;
       try {
         estimatedGas = await method.estimateGas({
@@ -186,17 +187,17 @@ function Index() {
         console.log("Estimated gas:", estimatedGas);
       } catch (e) {
         console.warn("Gas estimation failed, using fallback GAS_LIMIT.", e);
-        estimatedGas = CONFIG.GAS_LIMIT * mintAmount;
+        estimatedGas = CONFIG.GAS_LIMIT; // ✅ no multiplying by mintAmount
       }
 
-    // 2) Add buffer (20%)
+      // 2) Add buffer (20%)
       const gas = Math.ceil(Number(estimatedGas) * 1.2);
       console.log("Using gas with buffer:", gas);
 
-    // 3) Send tx
+      // 3) Send tx
       method
         .send({
-          gas: String(gas), // ✅ use "gas", not "gasLimit"
+          gas: String(gas),
           to: CONFIG.CONTRACT_ADDRESS,
           from: blockchain.account,
           value: totalCostWei,
@@ -212,7 +213,7 @@ function Index() {
             `WOW, the ${CONFIG.NFT_NAME} is yours! go visit OpenSea to view it.`
           );
           setClaimingNft(false);
-          dispatch(fetchData(blockchain.account));
+          dispatch(fetchData()); // ✅ fetchData5 takes no args
         });
     } catch (err) {
       console.error("claimNFTs error:", err);
@@ -220,6 +221,7 @@ function Index() {
       setClaimingNft(false);
     }
   };
+
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
@@ -253,7 +255,6 @@ function Index() {
   
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
-      // Render a complete state
       return (
         <s.TextDescription
           style={{
@@ -265,7 +266,6 @@ function Index() {
         </s.TextDescription>
       );
     } else {
-      // Render a countdown
       return (
         <s.TextTitle
           style={{ textAlign: "center", color: "var(--accent-text)", ...isMobile && { fontSize: '16px' } }}
@@ -294,18 +294,10 @@ function Index() {
   }
 
   const navigate = useNavigate();
-//  useEffect(() => {
-//    getData();
-//    if (blockchain.account != "" && blockchain.NFT_NAME != null) {
-//      dispatch(fetchData(blockchain.account));
-//    }
-//  }, [blockchain.NFT_NAME]);
-
 
   const settings = {
     dots: true,
     infinite: true,
-    // autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplaySpeed: 30000,
@@ -331,7 +323,6 @@ function Index() {
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} style={{ cursor: 'pointer', marginBottom:'30px'}}
           onClick={(e) => navigate('/home', '_blank') } />
-          {/* <ResponsiveWrapper flex={1} style={{  position: 'relative', maxWidth: '500px', padding: 50, ...isMobile && { padding: '50px 10px', overflow:'hidden' } }} test> */}
             <div style={{ width: isMobile ? '300px' : '500px' }}>
               <Slider {...settings}>
                 <div>
@@ -394,11 +385,13 @@ function Index() {
                                 {CONFIG.NETWORK.SYMBOL}.
                               </s.TextTitle> : null }
                               <s.SpacerXSmall />
-                              {/* <s.SpacerSmall />
-                              <s.SpacerSmall />
-                              <s.SpacerSmall /> */}
                               <s.Container ai={"center"} jc={"center"} fd={"row"} style={{ paddingTop: '10px' }}>
-                                {data && data.remainingTime ? <Countdown date={Date.now() + parseInt(data.remainingTime)} renderer={renderer} /> : null }
+                                {data && data.remainingTime ? (
+                                  <Countdown
+                                    date={Date.now() + parseInt(data.remainingTime) * 1000} // ✅ seconds -> ms
+                                    renderer={renderer}
+                                  />
+                                ) : null }
                               </s.Container>
                               <s.SpacerSmall />
                               <s.SpacerSmall />
@@ -484,20 +477,9 @@ function Index() {
                 </div>
               </Slider>
             </div>
-         {/* </ResponsiveWrapper> */}
         <s.SpacerMedium />
         <s.Container flex={0} jc={"center"} ai={"center"} style={{ width: "50%" }}>
           <s.TextDescription
-//            style={{
-//              textAlign: "center",
-//              color: "var(--accent-text)",
-//            }}
-//          >
-//            Please make sure you are connected to the right network (
-//</s.Container>            {CONFIG.NETWORK.NAME} Mainnet) and the correct address.
-//          </s.TextDescription>
-//          <s.SpacerSmall />
-//          <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--accent-text)",
