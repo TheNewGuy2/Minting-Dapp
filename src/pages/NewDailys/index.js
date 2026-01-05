@@ -197,7 +197,7 @@ function Index() {
       // 3) Send tx
       method
         .send({
-          gas: String(gas),
+          //gas: String(gas),
           to: CONFIG.CONTRACT_ADDRESS,
           from: blockchain.account,
           value: totalCostWei,
