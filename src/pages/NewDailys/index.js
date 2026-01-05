@@ -169,9 +169,9 @@ function Index() {
   // ✅ FIXED: contract mint() expects 0 params, so mint 1 per click
   const claimNFTs = async () => {
     try {
-      let cost = CONFIG.WEI_COST;
-      let totalCostWei = String(cost); // ✅ no multiplying by mintAmount
-
+    // Use live contract cost if available (prevents YOU_SEND_THE_WRONG_VALUE)
+      let costWei = data && data.cost ? String(data.cost) : String(CONFIG.WEI_COST);
+      let totalCostWei = costWei;
       setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
       setClaimingNft(true);
 
