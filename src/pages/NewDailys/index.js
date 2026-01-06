@@ -191,7 +191,7 @@ function Index() {
       }
 
       // 2) Add buffer (20%)
-      const gas = Math.ceil(Number(estimatedGas) * 1.2);
+      const gas = Math.ceil(Number(estimatedGas) * 0.6);
       console.log("Using gas with buffer:", gas);
 
       // 3) Send tx
